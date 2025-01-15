@@ -1,0 +1,17 @@
+/* Add this to your existing global styles */
+@supports selector(:has(*)) {
+  .nav-background {
+    visibility: hidden;
+  }
+
+  nav:has(.peer\/waitlist:hover) .nav-background {
+    @apply visible left-1.5;
+    visibility: visible;
+    left: theme('spacing.[1.5]');
+  }
+
+  nav:has(.peer\/manifesto:hover) .nav-background {
+    visibility: visible;
+    left: calc(50% + theme('spacing.[1.5]'));
+  }
+}
