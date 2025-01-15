@@ -1,9 +1,13 @@
 'use client';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 type InputForm = {
-  formAction?: (data: FormData) => Promise<void>;
+  formAction?: (data: FormData) => Promise<{ success: true } | { success: false; error: string }>;
+  buttonCopy: {
+    success: string;
+    idle: string;
+  };
 } & React.HTMLAttributes<HTMLInputElement>;
 
 type State = 'idle' | 'loading' | 'success' | 'error';
@@ -15,21 +19,39 @@ const STATES: Record<State, State> = {
   error: 'error',
 };
 
-export function InputForm({ formAction, ...props }: InputForm) {
+export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
   const [state, setState] = useState<State>(STATES.idle);
   const [error, setError] = useState<string>();
   const [value, setValue] = useState('');
+  const errorTimeout = useRef<NodeJS.Timeout | null>(null);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (errorTimeout.current) {
+      clearTimeout(errorTimeout.current);
+      setError(undefined);
+      setState(STATES.idle);
+    }
     if (formAction && typeof formAction === 'function') {
       try {
-        setState(STATES.loading);
-        await formAction(new FormData(e.currentTarget));
-        setState(STATES.success);
+        const data = await formAction(new FormData(e.currentTarget));
+        if (data.success) {
+          setState(STATES.success);
+        } else {
+          setState(STATES.error);
+          setError(data.error);
+          errorTimeout.current = setTimeout(() => {
+            setError(undefined);
+            setState(STATES.idle);
+          }, 3000);
+        }
       } catch (error) {
         setState(STATES.error);
         setError('There was an error while submitting the form');
         console.error(error);
+        errorTimeout.current = setTimeout(() => {
+          setError(undefined);
+          setState(STATES.idle);
+        }, 3000);
       }
     }
   };
@@ -41,6 +63,7 @@ export function InputForm({ formAction, ...props }: InputForm) {
       <div className="flex items-center justify-between gap-3 relative">
         <input
           {...props}
+          type="text"
           value={value}
           className={clsx(
             'flex-1 text-sm pl-4 pr-28 py-2 h-11 bg-gray-2 cursor-text rounded-full text-gray-12 placeholder:text-gray-9 border border-gray-4'
@@ -66,16 +89,14 @@ export function InputForm({ formAction, ...props }: InputForm) {
               <Loading />
             </>
           ) : submitted ? (
-            'Thanks for joining!'
+            buttonCopy.success
           ) : (
-            'Join Waitlist'
+            buttonCopy.idle
           )}
         </button>
       </div>
       <div className="w-full h-1" />
-      {error && (
-        <p className="absolute text-xs text-[#ff0000] top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">{error}</p>
-      )}
+      {error && <p className="absolute text-xs text-[#ff0000] top-full -translate-y-1/2 px-2">{error}</p>}
     </form>
   );
 }

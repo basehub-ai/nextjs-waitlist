@@ -76,7 +76,7 @@ export const Footer = () => {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 size-7 text-slate-8 hover:text-slate-10"
+                    className="flex items-center gap-1.5 size-7 text-slate-8 hover:text-slate-11"
                   >
                     <Icon
                       components={{
