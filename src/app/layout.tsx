@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist } from 'next/font/google';
 import './globals.css';
 import { Providers } from '~/context';
 import { Footer } from '~/components/footer';
 import { Header } from '~/components/header';
+import { Toolbar } from 'basehub/next-toolbar';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -21,28 +22,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={`${geistSans.className} antialiased w-screen h-screen overflow-hidden bg-slate-1 text-slate-12`}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1648 1986"
-          className="fixed top-0 left-0 w-full h-auto text-slate-2"
-        >
-          <defs>
-            <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse">
-              <circle cx="3" cy="3" r="3" fill="currentColor" opacity="1" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#dots)" />
-        </svg>
         <Providers>
           <div className="max-w-screen-sm mx-auto w-full h-full relative z-[1]">
-            <div className="px-5 py-20 flex items-center flex-col gap-16">
+            <div className="px-5 py-20 flex items-center flex-col gap-[60px]">
               <Header />
               <main className="flex justify-center items-center flex-col gap-[60px]">{children}</main>
               <Footer />
             </div>
           </div>
+          <Toolbar />
         </Providers>
       </body>
     </html>

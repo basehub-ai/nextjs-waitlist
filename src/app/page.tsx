@@ -1,6 +1,9 @@
 import { Pump } from 'basehub/react-pump';
 import { sendEvent, parseFormData } from 'basehub/events';
 import { Icon } from 'basehub/react-svg';
+
+export const revalidate = 0;
+
 export default function Home() {
   return (
     <Pump
@@ -29,15 +32,15 @@ export default function Home() {
       {async ([{ waitlist }, { settings }]) => {
         'use server';
         return (
-          <div className="w-full bg-gray-1 border border-gray-3 p-8 rounded-xl self-stretch shadow-[0px_0px_100px_70px_rgba(255,_255,_255,_0.05),_0px_0px_200px_120px_#000] max-w-[500px]">
-            <div className="space-y-8 text-center">
+          <div className="w-full max-w-[500px] self-stretch flex justify-center items-center  bg-gray-1 border border-gray-3 p-8 rounded-2xl shadow-[0px_0px_100px_70px_rgba(255,_255,_255,_0.05),_0px_0px_200px_120px_#000]">
+            <div className="flex flex-col items-center gap-4 flex-1 text-center w-full">
               {/* Logo */}
-              <div className="flex justify-center">
+              <div className="flex justify-center w-32 h-auto items-center mx-auto">
                 <Icon content={settings.logo!} />
               </div>
               {/* Heading */}
               <div className="space-y-4">
-                <h1 className="text-3xl md:text-4xl font-normal text-white">
+                <h1 className="text-xl md:text-2xl font-normal text-slate-12">
                   Be the first to try the new Acme
                   <br />
                   Team Chat System

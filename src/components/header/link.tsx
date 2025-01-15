@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 
 // Constants for sizing
 const LINK_WIDTH = 90;
@@ -15,8 +16,8 @@ export const NavbarLink = ({ href, children }: { href: string; children: React.R
   return (
     <Link
       href={href}
-      className={`relative px-4 py-1.5 text-sm font-mono transition-colors duration-200
-        ${pathname === href ? 'text-white' : 'text-slate-400 hover:text-slate-200'}`}
+      className={`relative text-sm font-medium py-1 px-3 transition-colors duration-200 text-slate-12 w-[90px] flex items-center justify-center
+        ${pathname === href ? 'opacity-100' : 'opacity-30 hover:opacity-60'}`}
     >
       {children}
     </Link>
@@ -30,12 +31,10 @@ export const NavbarLinkBackground = ({ links }: { links: string[] }) => {
 
   return (
     <div
-      className="absolute transition-all duration-200 ease-in-out h-[32px] rounded-full bg-slate-8"
+      className={clsx('absolute transition-all duration-200 ease-in-out h-7 rounded-full bg-slate-3')}
       style={{
-        width: `${LINK_WIDTH + 10}px`,
-        left: `${activeIndex * (LINK_WIDTH + PADDING)}px`,
-        top: '50%',
-        transform: 'translateY(-50%)',
+        width: `90px`,
+        left: `calc((${activeIndex} * 90px) + 4px)`,
       }}
     />
   );
