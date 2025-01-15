@@ -47,10 +47,9 @@ export default function Home() {
                 <div className="space-y-1">
                   <h1 className="text-xl md:text-3xl font-medium text-slate-12 whitespace-pre">{waitlist.title}</h1>
                   {waitlist.subtitle && (
-                    <RichTextWrapper
-                      className="text-gray-8 [&>p]:tracking-tight"
-                      content={waitlist.subtitle.json.content}
-                    />
+                    <div className="text-gray-8 [&>p]:tracking-tight">
+                      <RichText content={waitlist.subtitle.json.content} />
+                    </div>
                   )}
                 </div>
                 {/* Form */}
@@ -76,11 +75,3 @@ export default function Home() {
     </Pump>
   );
 }
-
-export const RichTextWrapper = ({ className, ...props }: RichTextProps & { className?: string }) => {
-  return (
-    <div className={clsx(className)}>
-      <RichText {...props} />
-    </div>
-  );
-};
