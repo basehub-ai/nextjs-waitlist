@@ -4,7 +4,7 @@ import { sendEvent, parseFormData } from 'basehub/events';
 import { InputForm } from '~/components/waitlist-form';
 import { WaitlistWrapper } from '~/components/box';
 
-export const revalidate = 0;
+export const dynamic = 'force-static';
 
 export default function Home() {
   return (
