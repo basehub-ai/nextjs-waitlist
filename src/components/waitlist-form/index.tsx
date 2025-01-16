@@ -35,7 +35,9 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
       try {
         const data = await formAction(new FormData(e.currentTarget));
         if (data.success) {
-          setState(STATES.success);
+          setTimeout(() => {
+            setState(STATES.success);
+          }, 3000);
         } else {
           setState(STATES.error);
           setError(data.error);
@@ -55,15 +57,14 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
       }
     }
   };
-  const inputDisabled = state === 'loading';
-  const buttonDisabled = state === 'loading' || value.length === 0;
-  const submitted = state === 'success';
+  const isSubmitted = state === 'success';
+  const inputDisabled = state === 'loading' || isSubmitted;
+
   return (
     <form className="flex flex-col gap-2 w-full relative" onSubmit={handleSubmit}>
       <div className="flex items-center justify-between gap-3 relative">
         <input
           {...props}
-          type="text"
           value={value}
           className={clsx(
             'flex-1 text-sm pl-4 pr-28 py-2 h-11 bg-gray-2 cursor-text rounded-full text-gray-12 placeholder:text-gray-9 border border-gray-4'
@@ -73,14 +74,14 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
         />
         <button
           type="submit"
-          disabled={buttonDisabled}
+          disabled={inputDisabled}
           className={clsx(
             'absolute h-8 px-3.5 bg-gray-12 text-gray-1 text-sm top-1/2 transform -translate-y-1/2 right-1.5 rounded-full font-medium',
+            'disabled:cursor-not-allowed',
             {
               'bg-gray-12 text-gray-2': state === 'loading',
-              'bg-black text-white': state === 'success',
             },
-            inputDisabled && 'bg-black text-white hover:bg-gray-800 disabled:bg-gray-400'
+            inputDisabled && 'cursor-not-allowed bg'
           )}
         >
           {state === 'loading' ? (
@@ -88,7 +89,7 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
               Subscribing...
               <Loading />
             </>
-          ) : submitted ? (
+          ) : isSubmitted ? (
             buttonCopy.success
           ) : (
             buttonCopy.idle

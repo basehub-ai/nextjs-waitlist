@@ -24,9 +24,11 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased w-screen h-screen overflow-hidden bg-slate-1 text-slate-12`}>
+      <body className={`${geistSans.className} antialiased w-screen min-h-svh bg-slate-1 text-slate-12`}>
         <Providers>
-          <Dots className="fixed top-5 left-0 w-full h-auto text-slate-4 dark:text-slate-2" />
+          <div className="fixed inset-0 w-full h-full pointer-events-none overflow-hidden">
+            <Dots className="fixed top-5 left-0 min-w-[1440px] min-h-[1080px] w-full h-auto text-slate-4 dark:text-slate-2" />
+          </div>
           <div className="max-w-screen-sm mx-auto w-full h-full relative z-[1]">
             <div className="px-5 pt-36 flex flex-col gap-[60px]">
               <Header />
