@@ -6,7 +6,7 @@ import { WaitlistWrapper } from '~/components/box';
 
 export const dynamic = 'force-static';
 
-export default function Home() {
+export default async function Home() {
   return (
     <Pump
       queries={[
