@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "basehub dev & next dev",
+    "dev": "basehub dev & next dev --port 3004",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "email": "email dev"
   },
   "dependencies": {
-    "basehub": "^8.0.4",
+    "@react-email/components": "0.0.32",
+    "basehub": "^8.1.0",
     "clsx": "^2.1.1",
     "next": "15.1.4",
     "next-themes": "^0.4.4",
@@ -22,6 +24,7 @@
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "postcss": "^8.5.1",
+    "react-email": "3.0.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3"
   }

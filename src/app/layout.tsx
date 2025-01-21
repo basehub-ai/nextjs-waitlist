@@ -2,10 +2,9 @@ import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import './globals.css';
 import { Providers } from '~/context';
-import { Footer } from '~/components/footer';
 import { Header } from '~/components/header';
 import { Toolbar } from 'basehub/next-toolbar';
-import { Dots } from '~/assets/dots';
+import { GradientBackground } from '~/components/gradient';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -24,16 +23,21 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} antialiased w-screen min-h-svh bg-slate-1 text-slate-12`}>
+      <head>
+        <script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
+      </head>
+      <body
+        className={`${geistSans.className} antialiased max-w-screen min-h-svh bg-slate-1 text-slate-12 opacity-0 duration-75 transition-opacity`}
+      >
         <Providers>
-          <div className="fixed inset-0 w-full h-full pointer-events-none overflow-hidden">
-            <Dots className="fixed top-5 left-0 min-w-[1440px] min-h-[1080px] w-full h-auto text-slate-4 dark:text-slate-2" />
-          </div>
-          <div className="max-w-screen-sm mx-auto w-full h-full relative z-[1]">
-            <div className="px-5 pt-36 flex flex-col gap-[60px]">
+          <GradientBackground>
+            <canvas id="gradient-canvas" className="fixed top-0 left-0 w-full h-full -z-1" data-transition-in />
+          </GradientBackground>
+          <div className="max-w-screen-sm mx-auto w-full h-full relative z-[1] flex justify-center items-center min-h-screen">
+            <div className="px-5 pt-8 gap-8 flex flex-col justify-center flex-1">
               <Header />
-              <main className="flex justify-center flex-col gap-[60px]">{children}</main>
-              <Footer />
+              <main className="flex justify-center">{children}</main>
+              <div className="h-8" />
             </div>
           </div>
           <Toolbar />
