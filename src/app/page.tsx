@@ -28,14 +28,9 @@ export default async function Home() {
             },
           },
         },
-        {
-          settings: {
-            logo: true,
-          },
-        },
       ]}
     >
-      {async ([{ waitlist }, { settings }]) => {
+      {async ([{ waitlist }]) => {
         'use server';
 
         const emailInput = waitlist.input.schema[0];

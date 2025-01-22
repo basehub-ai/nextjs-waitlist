@@ -33,7 +33,7 @@ export const POST = async (request: Request) => {
 
   const [
     {
-      newsletter: { emails: email },
+      newsletter: { emails: email, emailFrom, socialMedia },
       settings: { address },
     },
     {
@@ -47,6 +47,14 @@ export const POST = async (request: Request) => {
         address: true,
       },
       newsletter: {
+        emailFrom: true,
+        socialMedia: {
+          image: {
+            url: true,
+          },
+          _title: true,
+          url: true,
+        },
         emails: {
           __args: {
             filter: {
@@ -58,17 +66,10 @@ export const POST = async (request: Request) => {
           item: {
             _title: true,
             subject: true,
-            signature: {
+            author: {
               signatureName: true,
               role: true,
               name: true,
-            },
-            socialMedia: {
-              image: {
-                url: true,
-              },
-              _title: true,
-              url: true,
             },
             content: {
               json: {
@@ -123,15 +124,15 @@ export const POST = async (request: Request) => {
       subsBatch.map(({ email: emailAddress, id }) => {
         return {
           to: emailAddress!,
-          from: 'Acme <onboarding@resend.dev>',
+          from: emailFrom,
           subject: email.item!.subject,
           react: (
             <NewsletterEmail
               blocks={email.item?.content.json.blocks}
               json={email.item?.content.json.content}
               address={address}
-              signature={email.item!.signature}
-              socialLinks={email.item!.socialMedia}
+              author={email.item!.author}
+              socialLinks={socialMedia}
             />
           ),
         };

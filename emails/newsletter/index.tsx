@@ -2,9 +2,8 @@ import { RichText, RichTextProps } from 'basehub/react-rich-text';
 import { Head, Img, Tailwind, TailwindConfig } from '@react-email/components';
 import { Link } from '@react-email/components';
 import { fragmentOn } from 'basehub';
-import { Icon } from 'basehub/react-icon';
 
-const signatureFragment = fragmentOn('SignatureComponent', {
+const authorFragment = fragmentOn('AuthorComponent', {
   name: true,
   role: true,
   signatureName: true,
@@ -19,17 +18,17 @@ const socialMediaFragment = fragmentOn('SocialLinkComponent', {
 });
 type SocialMedia = fragmentOn.infer<typeof socialMediaFragment>;
 
-type SignatureFragment = fragmentOn.infer<typeof signatureFragment>;
+type AuthorFragment = fragmentOn.infer<typeof authorFragment>;
 
 type NewsletterEmailProps = {
   json: RichTextProps['content'];
   blocks: RichTextProps['blocks'];
-  signature?: SignatureFragment | null;
+  author?: AuthorFragment | null;
   socialLinks?: SocialMedia[] | null;
   address?: string | null;
 };
 
-function NewsletterEmail({ json, blocks, signature, socialLinks, address }: NewsletterEmailProps) {
+function NewsletterEmail({ json, blocks, author, socialLinks, address }: NewsletterEmailProps) {
   return (
     <Tailwind>
       <Head>
@@ -66,12 +65,12 @@ function NewsletterEmail({ json, blocks, signature, socialLinks, address }: News
         />
         <hr className="w-full h-px !border-none bg-gray-300" />
         <div>
-          {signature && (
+          {author && (
             <>
               <div className="mb-4">
-                <p className="italic alex-brush-regular text-4xl mb-1 mt-0">{signature.signatureName}</p>
+                <p className="italic alex-brush-regular text-4xl mb-1 mt-0">{author.signatureName}</p>
                 <p className="font-medium mt-0">
-                  {signature.name}–{signature.role}
+                  {author.name}–{author.role}
                 </p>
               </div>
               <hr className="w-full h-px !border-none bg-gray-300 mb-4" />
@@ -315,7 +314,7 @@ NewsletterEmail.PreviewProps = {
       },
     },
   ],
-  signature: {
+  author: {
     name: 'Jhon Doe',
     role: 'CEO @ Acme Corp',
     signatureName: 'J. Doe',

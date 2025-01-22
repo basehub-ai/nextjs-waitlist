@@ -23,7 +23,7 @@ export default async function Manifesto() {
                 content: true,
               },
             },
-            signature: {
+            author: {
               signatureName: true,
               name: true,
               role: true,
@@ -43,10 +43,10 @@ export default async function Manifesto() {
               <div className="flex flex-col gap-10">
                 <div className="flex flex-col gap-0.5 items-start">
                   <p className={clsx('text-slate-12 text-4xl font-medium italic transform -rotate-12', font.className)}>
-                    {manifesto.signature.signatureName}
+                    {manifesto.author.signatureName}
                   </p>
                   <p className="text-slate-11 text-sm font-medium">
-                    {manifesto.signature.name} <span className="text-slate-10 text-xs">{manifesto.signature.role}</span>
+                    {manifesto.author.name} <span className="text-slate-10 text-xs">{manifesto.author.role}</span>
                   </p>
                   <p></p>
                 </div>
