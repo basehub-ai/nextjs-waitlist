@@ -1,10 +1,8 @@
 import { basehub } from 'basehub';
 import { authenticateWebhook } from 'basehub/workflows';
 import { getEvents } from 'basehub/events';
-import { Resend } from 'resend';
-import { RichText, RichTextProps } from 'basehub/react-rich-text';
-
-export const resend = new Resend(process.env.RESEND_API_KEY);
+import { resend } from '~/lib/resend';
+import NewsletterEmail from '../../../../../emails/newsletter';
 
 export const POST = async (request: Request) => {
   'use server';
@@ -36,6 +34,10 @@ export const POST = async (request: Request) => {
   const [
     {
       newsletter: { emails: email },
+      settings: { address },
+      collections: {
+        socialLinks: { items: socialLinks },
+      },
     },
     {
       waitlist: {
@@ -44,6 +46,18 @@ export const POST = async (request: Request) => {
     },
   ] = await Promise.all([
     basehub().query({
+      settings: {
+        address: true,
+      },
+      collections: {
+        socialLinks: {
+          items: {
+            icon: true,
+            _title: true,
+            url: true,
+          },
+        },
+      },
       newsletter: {
         emails: {
           __args: {
@@ -56,6 +70,11 @@ export const POST = async (request: Request) => {
           item: {
             _title: true,
             subject: true,
+            signature: {
+              signatureName: true,
+              role: true,
+              name: true,
+            },
             content: {
               json: {
                 content: true,
@@ -110,7 +129,15 @@ export const POST = async (request: Request) => {
           to: emailAddress!,
           from: 'Acme <onboarding@resend.dev>',
           subject: email.item!.subject,
-          react: <></>,
+          react: (
+            <NewsletterEmail
+              blocks={email.item?.content.json.blocks}
+              json={email.item?.content.json.content}
+              address={address}
+              signature={email.item!.signature}
+              socialLinks={socialLinks}
+            />
+          ),
         };
       })
     );

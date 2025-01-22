@@ -22,9 +22,9 @@ type SignatureFragment = fragmentOn.infer<typeof signatureFragment>;
 type NewsletterEmailProps = {
   json: RichTextProps['content'];
   blocks: RichTextProps['blocks'];
-  signature: SignatureFragment;
+  signature?: SignatureFragment | null;
   socialLinks?: SocialMedia[];
-  address: string;
+  address?: string | null;
 };
 
 function NewsletterEmail({ json, blocks, signature, socialLinks, address }: NewsletterEmailProps) {
@@ -64,13 +64,17 @@ function NewsletterEmail({ json, blocks, signature, socialLinks, address }: News
         />
         <hr className="w-full h-px !border-none bg-gray-300" />
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <p className="italic alex-brush-regular text-4xl mb-0">{signature.signatureName}</p>
-            <p className="font-medium mt-0">
-              {signature.name}–{signature.role}
-            </p>
-          </div>
-          <hr className="w-full h-px !border-none bg-gray-300" />
+          {signature && (
+            <>
+              <div className="flex flex-col gap-1">
+                <p className="italic alex-brush-regular text-4xl mb-0">{signature.signatureName}</p>
+                <p className="font-medium mt-0">
+                  {signature.name}–{signature.role}
+                </p>
+              </div>
+              <hr className="w-full h-px !border-none bg-gray-300" />
+            </>
+          )}
           {socialLinks && (
             <div className="flex gap-2 items-center ">
               {socialLinks.map((item) => (
