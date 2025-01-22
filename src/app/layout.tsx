@@ -38,9 +38,14 @@ export const generateMetadata = async (): Promise<Metadata> => {
       type: 'website',
       images: [data.settings.metadata.ogImage.url],
     },
+    twitter: {
+      card: 'summary_large_image',
+      images: [data.settings.metadata.ogImage.url],
+    },
     icons: [data.settings.metadata.favicon.url],
   };
 };
+
 export default async function RootLayout({
   children,
 }: Readonly<{
