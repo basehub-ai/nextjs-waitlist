@@ -2,7 +2,7 @@ import { RichText, RichTextProps } from 'basehub/react-rich-text';
 import { Head, Tailwind, TailwindConfig } from '@react-email/components';
 import { Link } from '@react-email/components';
 import { fragmentOn } from 'basehub';
-import { Icon } from 'basehub/react-svg';
+import { Icon } from 'basehub/react-icon';
 
 const signatureFragment = fragmentOn('SignatureComponent', {
   name: true,

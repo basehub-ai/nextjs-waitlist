@@ -1,5 +1,5 @@
 import { Pump } from 'basehub/react-pump';
-import { Icon } from 'basehub/react-svg';
+import { Icon } from 'basehub/react-icon';
 import clsx from 'clsx';
 import { PropsWithChildren, ReactNode } from 'react';
 import { ThemeSwitcher } from '../switch-theme';

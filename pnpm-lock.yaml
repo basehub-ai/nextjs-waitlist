@@ -12,8 +12,8 @@ importers:
         specifier: 0.0.32
         version: 0.0.32(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       basehub:
-        specifier: ^8.1.0
-        version: 8.1.0(@babel/runtime@7.26.0)(@types/react@19.0.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
+        specifier: ^8.1.4
+        version: 8.1.4(@babel/runtime@7.26.0)(@types/react@19.0.7)(react@19.0.0)(typescript@5.7.3)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -992,8 +992,8 @@ packages:
     resolution: {integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==}
     engines: {node: ^4.5.0 || >= 5.9}
 
-  basehub@8.1.0:
-    resolution: {integrity: sha512-Gpw6rARikmWe2udkUUxs7G8+8kG+2EB/YuIL3BOmxbymPINXl+9cVtZaBoVnmDMlpT4eyD7iAsWKLo7u0auA4g==}
+  basehub@8.1.4:
+    resolution: {integrity: sha512-WTfN9Nu5gxrrwF/AKF7EosKBbYdsXF32GayhclEhMjpi+ZcZUDt6MZPSCgJ4ctOrYkK2QfGe0eLIhj3zgTSbdg==}
     hasBin: true
 
   binary-extensions@2.3.0:
@@ -2201,12 +2201,6 @@ packages:
     resolution: {integrity: sha512-8U6BEgGjQOfGz3HHTYaC/L1GaxDCJ/KM0XTkJly0EhZ5U/du9uNEZy4ZgYzEzIqlx2CMm25CrCqr1ck899eLNA==}
     engines: {node: '>=10.2.0'}
 
-  sonner@1.7.2:
-    resolution: {integrity: sha512-zMbseqjrOzQD1a93lxahm+qMGxWovdMxBlkTbbnZdNqVLt4j+amF9PQxUCL32WfztOFt9t9ADYkejAL3jF9iNA==}
-    peerDependencies:
-      react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
-      react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
-
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -3201,7 +3195,7 @@ snapshots:
 
   base64id@2.0.0: {}
 
-  basehub@8.1.0(@babel/runtime@7.26.0)(@types/react@19.0.7)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3):
+  basehub@8.1.4(@babel/runtime@7.26.0)(@types/react@19.0.7)(react@19.0.0)(typescript@5.7.3):
     dependencies:
       '@basehub/genql': 9.0.0-canary.10
       '@basehub/mutation-api-helpers': 2.0.7
@@ -3220,7 +3214,6 @@ snapshots:
       resolve-pkg: 2.0.0
       server-only: 0.0.1
       shiki: 1.17.7
-      sonner: 1.7.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       typesense: 1.8.2(@babel/runtime@7.26.0)
       zod: 3.24.1
     transitivePeerDependencies:
@@ -3229,7 +3222,6 @@ snapshots:
       - debug
       - enquirer
       - react
-      - react-dom
       - supports-color
       - typescript
 
@@ -4650,11 +4642,6 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
-
-  sonner@1.7.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
-    dependencies:
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
 
   source-map-js@1.2.1: {}
 

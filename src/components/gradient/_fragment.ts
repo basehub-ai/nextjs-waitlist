@@ -1,16 +1,16 @@
 import { fragmentOn } from 'basehub';
 
 export const backgroundFragment = fragmentOn('Background', {
-  gradient1: {
+  color1: {
     hex: true,
   },
-  gradient2: {
+  color2: {
     hex: true,
   },
-  gradient3: {
+  color3: {
     hex: true,
   },
-  gradient4: {
+  color4: {
     hex: true,
   },
 });

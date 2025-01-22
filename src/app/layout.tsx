@@ -55,18 +55,18 @@ export default async function RootLayout({
         className={`${geistSans.className} antialiased max-w-screen min-h-svh bg-slate-1 text-slate-12 opacity-0 duration-75 transition-opacity`}
       >
         <Providers>
-          <Pump queries={[{ settings: { theme: { background: backgroundFragment } } }]}>
+          <Pump queries={[{ settings: { theme: { background: { ...backgroundFragment, speed: true } } } }]}>
             {async ([{ settings }]) => {
               'use server';
               return (
-                <GradientBackground theme={settings.theme.background}>
+                <GradientBackground theme={settings.theme.background} speed={settings.theme.background.speed}>
                   <canvas id="gradient-canvas" className="fixed top-0 left-0 w-full h-full -z-1" data-transition-in />
                 </GradientBackground>
               );
             }}
           </Pump>
           <div className="max-w-screen-sm mx-auto w-full relative z-[1] flex flex-col min-h-screen">
-            <div className="px-5 gap-8 flex flex-col flex-1 pt-24 md:pt-32 lg:pt-[220px] pb-4">
+            <div className="px-5 gap-8 flex flex-col flex-1 py-[12vh]">
               <Header />
               <main className="flex justify-center">{children}</main>
             </div>
