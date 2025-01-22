@@ -79,9 +79,10 @@ export const POST = async (request: Request) => {
               json: {
                 content: true,
                 blocks: {
+                  _id: true,
+                  __typename: true,
                   on_CalloutBoxComponent: {
                     title: true,
-                    __typename: true,
                     content: {
                       json: {
                         content: true,
