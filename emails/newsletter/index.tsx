@@ -23,7 +23,7 @@ type NewsletterEmailProps = {
   json: RichTextProps['content'];
   blocks: RichTextProps['blocks'];
   signature?: SignatureFragment | null;
-  socialLinks?: SocialMedia[];
+  socialLinks?: SocialMedia[] | null;
   address?: string | null;
 };
 
@@ -63,11 +63,11 @@ function NewsletterEmail({ json, blocks, signature, socialLinks, address }: News
           }}
         />
         <hr className="w-full h-px !border-none bg-gray-300" />
-        <div className="flex">
+        <div>
           {signature && (
             <>
-              <div className="flex flex-col gap-1 mb-4">
-                <p className="italic alex-brush-regular text-4xl mb-0">{signature.signatureName}</p>
+              <div className="mb-4">
+                <p className="italic alex-brush-regular text-4xl mb-1 mt-0">{signature.signatureName}</p>
                 <p className="font-medium mt-0">
                   {signature.name}–{signature.role}
                 </p>
@@ -85,7 +85,7 @@ function NewsletterEmail({ json, blocks, signature, socialLinks, address }: News
                   <Icon
                     content={item.icon}
                     components={{
-                      svg: (props) => <svg {...props} className="size-3" />,
+                      svg: (props) => <svg {...props} className="size-3 text-gray-800" />,
                     }}
                   />
                 </Link>

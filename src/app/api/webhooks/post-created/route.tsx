@@ -35,9 +35,6 @@ export const POST = async (request: Request) => {
     {
       newsletter: { emails: email },
       settings: { address },
-      collections: {
-        socialLinks: { items: socialLinks },
-      },
     },
     {
       waitlist: {
@@ -48,15 +45,6 @@ export const POST = async (request: Request) => {
     basehub().query({
       settings: {
         address: true,
-      },
-      collections: {
-        socialLinks: {
-          items: {
-            icon: true,
-            _title: true,
-            url: true,
-          },
-        },
       },
       newsletter: {
         emails: {
@@ -74,6 +62,11 @@ export const POST = async (request: Request) => {
               signatureName: true,
               role: true,
               name: true,
+            },
+            socialMedia: {
+              icon: true,
+              _title: true,
+              url: true,
             },
             content: {
               json: {
@@ -136,7 +129,7 @@ export const POST = async (request: Request) => {
               json={email.item?.content.json.content}
               address={address}
               signature={email.item!.signature}
-              socialLinks={socialLinks}
+              socialLinks={email.item!.socialMedia}
             />
           ),
         };
