@@ -43,7 +43,7 @@ export const POST = async (request: Request) => {
       },
     },
   ] = await Promise.all([
-    basehub({ draft: true }).query({
+    basehub().query({
       newsletter: {
         emails: {
           __args: {
