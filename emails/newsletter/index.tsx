@@ -1,5 +1,5 @@
 import { RichText, RichTextProps } from 'basehub/react-rich-text';
-import { Head, Tailwind, TailwindConfig } from '@react-email/components';
+import { Head, Img, Tailwind, TailwindConfig } from '@react-email/components';
 import { Link } from '@react-email/components';
 import { fragmentOn } from 'basehub';
 import { Icon } from 'basehub/react-icon';
@@ -13,7 +13,9 @@ const signatureFragment = fragmentOn('SignatureComponent', {
 const socialMediaFragment = fragmentOn('SocialLinkComponent', {
   url: true,
   _title: true,
-  icon: true,
+  image: {
+    url: true,
+  },
 });
 type SocialMedia = fragmentOn.infer<typeof socialMediaFragment>;
 
@@ -76,20 +78,17 @@ function NewsletterEmail({ json, blocks, signature, socialLinks, address }: News
             </>
           )}
           {socialLinks && (
-            <div className="flex gap-2 items-center mb-4">
-              {socialLinks.map((item) => (
-                <Link
-                  href={item.url}
-                  className="!text-gray-600 size-4 p-2 bg-gray-200 flex items-center justify-center rounded-full"
-                >
-                  <Icon
-                    content={item.icon}
-                    components={{
-                      svg: (props) => <svg {...props} className="size-3 text-gray-800" />,
-                    }}
-                  />
-                </Link>
-              ))}
+            <div className="flex items-center mb-4">
+              {socialLinks
+                .filter((item) => item.image)
+                .map((item) => (
+                  <Link
+                    href={item.url}
+                    className="!text-gray-600 mb-2 size-4 p-2 bg-gray-200 flex items-center justify-center rounded-full"
+                  >
+                    <Img src={item.image!.url} />
+                  </Link>
+                ))}
             </div>
           )}
           <pre className="text-sm text-gray-400 whitespace-pre-line block">{address}</pre>

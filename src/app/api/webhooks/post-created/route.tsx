@@ -64,7 +64,9 @@ export const POST = async (request: Request) => {
               name: true,
             },
             socialMedia: {
-              icon: true,
+              image: {
+                url: true,
+              },
               _title: true,
               url: true,
             },
