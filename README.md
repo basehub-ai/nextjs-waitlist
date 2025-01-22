@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Open Graph, Waitlist](https://github.com/basehub-ai/waitlist-template/blob/main/public/waitlist-template.png?raw=true)
 
-## Getting Started
+[BaseHub Templates](https://basehub.com/templates) are production-ready website templates, powered by BaseHub.
 
-First, run the development server:
+# Waitlist Template
+
+[![Use template](https://basehub.com/template-button.svg)](https://basehub.com/basehub/waitlist-template)
+
+Fully featured Waitlist Template.
+
+- 🔸 Ideal for startups and indie hackers seeking to build a waitlist for early adopters
+- 🔸 Allows for sending personalized emails to subscribers, encouraging interaction and excitement, all in BaseHub.
+- 🔸 Fully customizable to match your brand's voice and style
+- 🔸 Seamlessly integrates with BaseHub, ensuring a smooth process for managing your waitlist and sending newsletters
+
+## Stack
+
+- Next.js
+- BaseHub
+- Tailwind CSS
+
+## One Click Deployment
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fbasehub-ai%2Fwaitlist-template&integration-ids=oac_xwgyJe0UwFLtsKIvIScYh0rY&project-name=waitlist-template&repository-name=waitlist-template&redirect-url=https%3A%2F%2Fbasehub.com%2Fapi%2Fvercel%2Fredirect-repo&env=RESEND_TOKEN&external-id=mly6i259eym3jkyvq6txyciu%3AQpFqhzC2n0yFl4DNHmCJL%3Aread%3A%3Cbasehub-null-value%3E%3A%3Cbasehub-null-value%3E%3A%3Cbasehub-null-value%3E&teamSlug=basehub)
+
+_You can deploy this anywhere. Vercel works nicely and with one click._
+
+## Local Development
+
+**Install dependencies**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Add your BASEHUB_TOKEN to `.env.local`**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```txt
+# .env.local
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+BASEHUB_TOKEN="<get-it-from-your-basehub-repo>"
+RESEND_API_KEY="" # get it here https://resend.com/
+```
 
-## Learn More
+**Start the dev server**
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm dev
+```
