@@ -63,24 +63,24 @@ function NewsletterEmail({ json, blocks, signature, socialLinks, address }: News
           }}
         />
         <hr className="w-full h-px !border-none bg-gray-300" />
-        <div className="flex flex-col gap-4">
+        <div className="flex">
           {signature && (
             <>
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 mb-4">
                 <p className="italic alex-brush-regular text-4xl mb-0">{signature.signatureName}</p>
                 <p className="font-medium mt-0">
                   {signature.name}–{signature.role}
                 </p>
               </div>
-              <hr className="w-full h-px !border-none bg-gray-300" />
+              <hr className="w-full h-px !border-none bg-gray-300 mb-4" />
             </>
           )}
           {socialLinks && (
-            <div className="flex gap-2 items-center ">
+            <div className="flex gap-2 items-center mb-4">
               {socialLinks.map((item) => (
                 <Link
                   href={item.url}
-                  className="!text-gray-600 p-2 bg-gray-200 flex items-center justify-center rounded-full"
+                  className="!text-gray-600 size-4 p-2 bg-gray-200 flex items-center justify-center rounded-full"
                 >
                   <Icon
                     content={item.icon}
