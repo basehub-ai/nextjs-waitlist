@@ -76,12 +76,12 @@ function NewsletterEmail({
             <>
               <div className="mb-8">
                 {/* cursive font */}
-                <P className='font-["Brush_Script_MT",_"Brush_Script_Std",_cursive] text-3xl text-[#1C2024]'>
+                <p className='font-["Brush_Script_MT",_"Brush_Script_Std",_cursive] text-3xl text-[#1C2024] mb-0 mt-0'>
                   {author.signatureName}
-                </P>
-                <P className="font-medium mt-0 !text-xs text-[#1C2024]">
+                </p>
+                <p className="eading-relaxed font-[Helvetica,_'ui-sans-serif'] text-base font-medium mt-0 !text-xs text-[#1C2024]">
                   {author.name}–{author.role}
-                </P>
+                </p>
               </div>
               <Hr />
             </>
@@ -105,11 +105,11 @@ function NewsletterEmail({
             </Column>
           )}
           {unsubscribeLink && (
-            <p className="text-xs text-[#60646C] mb-4">
+            <p className="text-xs text-[#60646C] mb-4 eading-relaxed font-[Helvetica,_'ui-sans-serif'] mt-0">
               <A href={unsubscribeLink}>Unsubscribe</A> from these emails
             </p>
           )}
-          <pre className="text-sm !text-[#B9BBC6] whitespace-pre-line block">
+          <pre className="text-sm font-[Helvetica,_'ui-sans-serif'] !text-[#B9BBC6] block">
             {address}
           </pre>
         </div>
@@ -375,9 +375,13 @@ const A = (props: LinkProps) => {
   return <Link {...props} className="text-[#60646C] underline" />
 }
 
-const P = ({ children, className }: TextProps) => (
+const P = ({ children }: TextProps) => (
   <Text
-    className={`leading-relaxed font-[Helvetica,_'ui-sans-serif'] text-[#60646C] text-base mt-0 mb-8 ${className}`}
+    className="leading-relaxed font-[Helvetica,_'ui-sans-serif'] text-[#60646C] text-base"
+    style={{
+      marginTop: 0,
+      marginBottom: 32,
+    }}
   >
     {children}
   </Text>
@@ -429,14 +433,14 @@ const defaultComponents: RichTextProps['components'] = {
   },
   code: ({ children }) => <CodeInline>{children}</CodeInline>,
   img: ({ src, alt, caption }) => (
-    <figure className="mb-8">
+    <figure className="mb-8 mx-0">
       <Img
         src={src}
         alt={alt}
-        className="rounded-xl w-full object-cover mb-2"
+        className="rounded-xl w-full object-cover mb-2 mx-0"
       />
       {caption && (
-        <figcaption className="text-gray-400 text-sm text-center mx-auto">
+        <figcaption className="text-[#8B8D98] text-sm text-center mx-auto font-[Helvetica,_'ui-sans-serif']">
           {caption}
         </figcaption>
       )}
