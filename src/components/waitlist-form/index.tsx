@@ -62,6 +62,8 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
   const isSubmitted = state === 'success'
   const inputDisabled = state === 'loading' || isSubmitted
 
+  console.log(props)
+
   return (
     <form
       className="flex flex-col gap-2 w-full relative"

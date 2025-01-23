@@ -10,6 +10,7 @@
     "email": "email dev"
   },
   "dependencies": {
+    "@paper-design/shaders-react": "^0.0.18",
     "@react-email/components": "0.0.32",
     "basehub": "^8.1.6",
     "clsx": "^2.1.1",
