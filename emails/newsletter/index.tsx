@@ -1,6 +1,18 @@
 import { RichText, RichTextProps } from 'basehub/react-rich-text'
-import { Head, Img, Tailwind, TailwindConfig } from '@react-email/components'
-import { Link } from '@react-email/components'
+import {
+  CodeBlock,
+  CodeInline,
+  dracula,
+  Heading,
+  Img,
+  LinkProps,
+  PrismLanguage,
+  Tailwind,
+  Text,
+  TextProps,
+  Link,
+  Row,
+} from '@react-email/components'
 import { fragmentOn } from 'basehub'
 
 const authorFragment = fragmentOn('AuthorComponent', {
@@ -39,24 +51,6 @@ function NewsletterEmail({
 }: NewsletterEmailProps) {
   return (
     <Tailwind>
-      <Head>
-        <style>
-          {`
-         @import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Geist:wght@100..900&display=swap');
-
-          /* Fallback font stack in case custom fonts fail to load */
-          .alex-brush-regular {
-            font-family: "Alex Brush", serif;
-            font-weight: 400;
-            font-style: normal;
-          }
-
-          * {
-            font-family: Geist, serif;
-          }
-        `}
-        </style>
-      </Head>
       <div className="max-w-screen-md mx-auto py-8 gap-8">
         <RichText
           content={content}
@@ -74,47 +68,42 @@ function NewsletterEmail({
             ),
           }}
         />
-        <hr className="w-full h-px !border-none bg-gray-300" />
+        <Hr />
         <div>
           {author && (
             <>
-              <div className="mb-4">
-                <p className="italic alex-brush-regular text-4xl mb-1 mt-0">
+              <div className="mb-8">
+                {/* cursive font */}
+                <P className='font-["Brush_Script_MT",_"Brush_Script_Std",_cursive] text-xl'>
                   {author.signatureName}
-                </p>
-                <p className="font-medium mt-0">
+                </P>
+                <P className="font-medium mt-0">
                   {author.name}–{author.role}
-                </p>
+                </P>
               </div>
-              <hr className="w-full h-px !border-none bg-gray-300 mb-4" />
+              <Hr />
             </>
           )}
           {socialLinks && (
-            <div className="flex items-center mb-4">
+            <Row>
               {socialLinks
                 .filter((item) => item.image)
                 .map((item) => (
                   <Link
                     href={item.url}
-                    className="!text-gray-600 mb-2 size-4 p-2 bg-gray-200 flex items-center justify-center rounded-full"
+                    className="mb-4 w-4 h-4 p-2 bg-[#F0F0F3)] flex justify-center rounded-full"
                   >
                     <Img src={item.image!.url} />
                   </Link>
                 ))}
-            </div>
+            </Row>
           )}
           {unsubscribeLink && (
-            <p className="text-xs text-gray-400 mb-4">
-              <Link
-                className="font-medium underline text-gray-500 decoration-gray-400"
-                href={unsubscribeLink}
-              >
-                Unsubscribe
-              </Link>{' '}
-              from these emails
+            <p className="text-xs text-[#60646C] mb-4">
+              <A href={unsubscribeLink}>Unsubscribe</A> from these emails
             </p>
           )}
-          <pre className="text-sm text-gray-400 whitespace-pre-line block">
+          <pre className="text-sm !text-[#B9BBC6] whitespace-pre-line block">
             {address}
           </pre>
         </div>
@@ -374,47 +363,105 @@ New York, NY, 10013`,
 
 export default NewsletterEmail
 
+const Hr = () => (
+  <hr className="border-0 border-b border-solid border-[#E8E8EC]" />
+)
+
+const A = (props: LinkProps) => {
+  return <Link {...props} className="text-[#60646C] underline" />
+}
+
+const P = ({ children, className }: TextProps) => (
+  <Text
+    className={`leading-relaxed font-[Helvetica,_'ui-sans-serif'] text-[#60646C] text-base ${className}`}
+  >
+    {children}
+  </Text>
+)
+
 const defaultComponents: RichTextProps['components'] = {
   h1: ({ children }) => (
-    <h1 className="text-4xl font-serif mb-6">{children}</h1>
+    <Heading
+      as="h1"
+      className="leading-none text-4xl font-[Georgia,_'ui-serif'] mb-2 text-[#1C2024]"
+    >
+      {children}
+    </Heading>
   ),
   h2: ({ children }) => (
-    <h2 className="text-3xl font-medium text-gray-900 mb-8">{children}</h2>
+    <Heading
+      as="h2"
+      className="leading-none font-[Georgia,_'ui-serif'] text-2xl mb-2 text-[#1C2024]"
+    >
+      {children}
+    </Heading>
   ),
   h3: ({ children }) => (
-    <h3 className="text-xl font-medium mb-4">{children}</h3>
+    <Heading
+      as="h3"
+      className="leading-none font-[Georgia,_'ui-serif'] text-xl mb-2 text-[#1C2024]"
+    >
+      {children}
+    </Heading>
   ),
   h4: ({ children }) => (
-    <h4 className="text-xl font-medium mb-4">{children}</h4>
+    <Heading
+      as="h4"
+      className="leading-none font-[Georgia,_'ui-serif'] text-xl mb-2 text-[#1C2024]"
+    >
+      {children}
+    </Heading>
   ),
-  p: ({ children }) => (
-    <p className="text-gray-700 leading-relaxed mb-4">{children}</p>
-  ),
+  p: P,
+  pre: ({ code, language }) => {
+    return (
+      <CodeBlock
+        code={code}
+        fontFamily="'CommitMono', monospace"
+        language={language as PrismLanguage}
+        theme={dracula}
+      />
+    )
+  },
+  code: ({ children }) => <CodeInline>{children}</CodeInline>,
   img: ({ src, alt, caption }) => (
-    <figure className="flex flex-col items-center mb-8">
-      <img
+    <figure className="mb-8">
+      <Img
         src={src}
         alt={alt}
-        className="rounded-xl w-full object-cover mb-3"
+        className="rounded-xl w-full object-cover mb-2"
       />
       {caption && (
-        <figcaption className="text-gray-400 text-sm">{caption}</figcaption>
+        <figcaption className="text-gray-400 text-sm text-center mx-auto">
+          {caption}
+        </figcaption>
       )}
     </figure>
   ),
-  b: (props) => <strong {...props} className="font-medium" />,
+  b: (props) => <strong {...props} className="font-medium text-[#80838D]" />,
   blockquote: ({ ...props }) => (
     <blockquote
       {...props}
-      className="border-0 pl-8 ml-0 border-l-4 border-solid border-gray-200 [&>b]:text-sm"
+      className="border-0 pl-3 ml-0 border-l-4 border-solid border-[#E8E8EC] [&>b]:text-xs"
     />
   ),
-  a: ({ href, children }) => (
-    <Link
-      href={href}
-      className="text-gray-400 hover:text-gray-600 transition-colors"
-    >
+  a: A,
+  table: ({ children }) => <div className="overflow-x-auto">{children}</div>,
+  thead: ({ children }) => (
+    <thead className="text-left text-[#60646C] font-medium text-xs uppercase">
       {children}
-    </Link>
+    </thead>
   ),
+  th: ({ children }) => (
+    <th className="px-3 py-2 border-b border-[#E8E8EC]">{children}</th>
+  ),
+  td: ({ children }) => (
+    <td className="px-3 py-2 border-b border-[#E8E8EC]">{children}</td>
+  ),
+  tr: ({ children }) => (
+    <tr className="border-b border-[#E8E8EC]">{children}</tr>
+  ),
+  tbody: ({ children }) => <tbody>{children}</tbody>,
+  video: ({ children }) => <div className="overflow-hidden">{children}</div>, // not available in mail
+  hr: Hr,
 }
