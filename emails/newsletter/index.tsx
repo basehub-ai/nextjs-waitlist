@@ -108,24 +108,43 @@ function NewsletterEmail({
                       borderRadius: '50%',
                       width: 32,
                       height: 32,
-                      padding: '8px',
                       marginRight: 16,
                       textDecoration: 'none',
+                      lineHeight: 0, // Critical for email clients
                     }}
                   >
-                    <Img
-                      src={item.image?.url}
-                      alt={item._title || 'Social icon'}
-                      width={16}
-                      height={16}
+                    {/* Centering container */}
+                    <div
                       style={{
-                        display: 'block',
-                        margin: '0 auto',
-                        lineHeight: 0,
-                        outline: 'none',
-                        border: 'none',
+                        display: 'table',
+                        width: '100%',
+                        height: '100%',
+                        textAlign: 'center',
                       }}
-                    />
+                    >
+                      <div
+                        style={{
+                          display: 'table-cell',
+                          verticalAlign: 'middle',
+                          padding: 0,
+                          margin: 0,
+                        }}
+                      >
+                        <Img
+                          src={item.image?.url}
+                          alt={item._title || 'Social icon'}
+                          width={16}
+                          height={16}
+                          style={{
+                            display: 'inline-block',
+                            margin: '0 auto',
+                            outline: 'none',
+                            border: 'none',
+                            lineHeight: 0,
+                          }}
+                        />
+                      </div>
+                    </div>
                   </Link>
                 ))}
             </Section>
