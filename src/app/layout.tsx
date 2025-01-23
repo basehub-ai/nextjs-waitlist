@@ -20,6 +20,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       metadata: {
         titleTemplate: true,
         defaultTitle: true,
+        defaultDescription: true,
         favicon: {
           url: true,
         },
@@ -34,6 +35,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       template: data.settings.metadata.titleTemplate,
       default: data.settings.metadata.defaultTitle,
     },
+    description: data.settings.metadata.defaultDescription,
     openGraph: {
       type: 'website',
       images: [data.settings.metadata.ogImage.url],
