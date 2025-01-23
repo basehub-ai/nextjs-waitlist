@@ -9,14 +9,12 @@ const siteUrl = process.env.NEXT_PUBLIC_URL
 export const POST = async (request: Request) => {
   'use server'
   const data = await basehub().query({
-    settings: {
-      address: true,
-    },
     newsletter: {
       emailFrom: true,
       emailPost: {
         webhookSecret: true,
       },
+      address: true,
       socialMedia: {
         image: {
           url: true,
@@ -125,7 +123,7 @@ export const POST = async (request: Request) => {
                 content={
                   emailQuery.newsletter.emails.item?.content.json.content
                 }
-                address={data.settings.address}
+                address={data.newsletter.address}
                 author={emailQuery.newsletter.emails.item!.author}
                 socialLinks={data.newsletter.socialMedia}
                 unsubscribeLink={`${siteUrl}/api/email-unsubscribe?event-id=${id}`}
