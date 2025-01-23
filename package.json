@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "basehub dev & next dev --port 3004",
+    "dev": "basehub dev & next dev --turbopack",
     "build": "basehub && next build",
     "start": "next start",
     "lint": "next lint",
     "email": "email dev"
   },
   "dependencies": {
+    "@paper-design/shaders-react": "^0.0.18",
     "@react-email/components": "0.0.32",
     "basehub": "^8.1.6",
     "clsx": "^2.1.1",

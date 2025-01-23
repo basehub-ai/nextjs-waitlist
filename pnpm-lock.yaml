@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@paper-design/shaders-react':
+        specifier: ^0.0.18
+        version: 0.0.18
       '@react-email/components':
         specifier: 0.0.32
         version: 0.0.32(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -698,6 +701,12 @@ packages:
 
   '@one-ini/wasm@0.1.1':
     resolution: {integrity: sha512-XuySG1E38YScSJoMlqovLru4KTUNSjgVTIjyh7qMX6aNN5HY5Ct5LhRJdxO79JtTzKfzV/bnWpz+zquYrISsvw==}
+
+  '@paper-design/shaders-react@0.0.18':
+    resolution: {integrity: sha512-/0ZSqNI8Vc5Dcu0Dwv9sTLk87v4vauMg/r+3mmSfPs/L8S1hBVAUPo//euciEx6PVlUJEhSGA3X4GfY30gg9Sg==}
+
+  '@paper-design/shaders@0.0.16':
+    resolution: {integrity: sha512-651Q8T/+Rmzog/TbNUTzM3uGFNCpo8xPM3oTKK1sL/Sq25BLUfqJ42V/2T/benHHFnOxhAtyCKyQ6KH81UNE3g==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -2918,6 +2927,13 @@ snapshots:
       fastq: 1.18.0
 
   '@one-ini/wasm@0.1.1': {}
+
+  '@paper-design/shaders-react@0.0.18':
+    dependencies:
+      '@paper-design/shaders': 0.0.16
+      react: 19.0.0
+
+  '@paper-design/shaders@0.0.16': {}
 
   '@pkgjs/parseargs@0.11.0':
     optional: true

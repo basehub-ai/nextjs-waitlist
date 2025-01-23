@@ -4,10 +4,9 @@ import './globals.css'
 import { Providers } from '~/context'
 import { Header } from '~/components/header'
 import { Toolbar } from 'basehub/next-toolbar'
-import { GradientBackground } from '~/components/gradient'
 import { basehub } from 'basehub'
 import { Pump } from 'basehub/react-pump'
-import { backgroundFragment } from '~/components/gradient/_fragment'
+import { MeshGradientComponent } from '~/components/mesh-gradient'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -21,6 +20,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       metadata: {
         titleTemplate: true,
         defaultTitle: true,
+        defaultDescription: true,
         favicon: {
           url: true,
         },
@@ -35,6 +35,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
       template: data.settings.metadata.titleTemplate,
       default: data.settings.metadata.defaultTitle,
     },
+    description: data.settings.metadata.defaultDescription,
     openGraph: {
       type: 'website',
       images: [data.settings.metadata.ogImage.url],
@@ -59,28 +60,43 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.className} antialiased max-w-screen min-h-svh bg-slate-1 text-slate-12 opacity-0 duration-75 transition-opacity`}
+        className={`${geistSans.className} antialiased max-w-screen min-h-svh bg-slate-1 text-slate-12`}
       >
         <Providers>
           <Pump
             queries={[
               {
                 settings: {
-                  background: { ...backgroundFragment, speed: true },
+                  background: {
+                    color1: { hex: true },
+                    color2: { hex: true },
+                    color3: { hex: true },
+                    color4: { hex: true },
+                    speed: true,
+                  },
                 },
               },
             ]}
           >
             {async ([{ settings }]) => {
               'use server'
+
               return (
-                <GradientBackground {...settings.background}>
-                  <canvas
-                    id="gradient-canvas"
-                    className="fixed top-0 left-0 w-full h-full -z-1"
-                    data-transition-in
-                  />
-                </GradientBackground>
+                <MeshGradientComponent
+                  color1={settings.background.color1.hex}
+                  color2={settings.background.color2.hex}
+                  color3={settings.background.color3.hex}
+                  color4={settings.background.color4.hex}
+                  speed={settings.background.speed}
+                  style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    zIndex: 0,
+                    width: '100%',
+                    height: '100%',
+                  }}
+                />
               )
             }}
           </Pump>
