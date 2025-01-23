@@ -4,7 +4,7 @@ import { getEvents } from 'basehub/events'
 import { resend } from '~/lib/resend'
 import NewsletterEmail from '../../../../../emails/newsletter'
 
-const siteUrl = process.env.NEXT_PUBLIC_URL
+const siteUrl = process.env.VERCEL_URL
 
 export const POST = async (request: Request) => {
   'use server'
