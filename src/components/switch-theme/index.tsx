@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import * as React from 'react';
-import { useTheme } from 'next-themes';
-import clsx from 'clsx';
+import * as React from 'react'
+import { useTheme } from 'next-themes'
+import clsx from 'clsx'
 
-const options = ['dark', 'system', 'light'] as const;
+const options = ['dark', 'system', 'light'] as const
 
 export function ThemeSwitcher({ className }: { className?: string }) {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
 
   // Handle mounting state
   React.useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   // Don't render anything until mounted to prevent hydration mismatch
   if (!mounted) {
@@ -28,7 +28,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
           </React.Fragment>
         ))}
       </div>
-    );
+    )
   }
 
   return (
@@ -48,9 +48,11 @@ export function ThemeSwitcher({ className }: { className?: string }) {
           >
             <span className="first-letter:uppercase">{option}</span>
           </button>
-          {i < options.length - 1 && <span className="text-xs text-slate-8">/</span>}
+          {i < options.length - 1 && (
+            <span className="text-xs text-slate-8">/</span>
+          )}
         </React.Fragment>
       ))}
     </div>
-  );
+  )
 }

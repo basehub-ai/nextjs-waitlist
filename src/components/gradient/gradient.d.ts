@@ -1,16 +1,16 @@
 export class Gradient {
-  constructor();
+  constructor()
   initGradient(
     selector: string,
     options?: {
-      speed?: number;
+      speed?: number
     }
-  ): void;
-  disconnect(): void;
-  setSpeed(n: number): void;
+  ): void
+  disconnect(): void
+  setSpeed(n: number): void
 }
 
 export interface GradientProps {
   // ... existing props ...
-  speed?: number; // Speed multiplier for the animation
+  speed?: number // Speed multiplier for the animation
 }

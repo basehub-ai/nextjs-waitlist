@@ -1,13 +1,13 @@
-import { RichText, RichTextProps } from 'basehub/react-rich-text';
-import { Head, Img, Tailwind, TailwindConfig } from '@react-email/components';
-import { Link } from '@react-email/components';
-import { fragmentOn } from 'basehub';
+import { RichText, RichTextProps } from 'basehub/react-rich-text'
+import { Head, Img, Tailwind, TailwindConfig } from '@react-email/components'
+import { Link } from '@react-email/components'
+import { fragmentOn } from 'basehub'
 
 const authorFragment = fragmentOn('AuthorComponent', {
   name: true,
   role: true,
   signatureName: true,
-});
+})
 
 const socialMediaFragment = fragmentOn('SocialLinkComponent', {
   url: true,
@@ -15,20 +15,26 @@ const socialMediaFragment = fragmentOn('SocialLinkComponent', {
   image: {
     url: true,
   },
-});
-type SocialMedia = fragmentOn.infer<typeof socialMediaFragment>;
+})
+type SocialMedia = fragmentOn.infer<typeof socialMediaFragment>
 
-type AuthorFragment = fragmentOn.infer<typeof authorFragment>;
+type AuthorFragment = fragmentOn.infer<typeof authorFragment>
 
 type NewsletterEmailProps = {
-  json: RichTextProps['content'];
-  blocks: RichTextProps['blocks'];
-  author?: AuthorFragment | null;
-  socialLinks?: SocialMedia[] | null;
-  address?: string | null;
-};
+  content: RichTextProps['content']
+  blocks: RichTextProps['blocks']
+  author?: AuthorFragment | null
+  socialLinks?: SocialMedia[] | null
+  address?: string | null
+}
 
-function NewsletterEmail({ json, blocks, author, socialLinks, address }: NewsletterEmailProps) {
+function NewsletterEmail({
+  content,
+  blocks,
+  author,
+  socialLinks,
+  address,
+}: NewsletterEmailProps) {
   return (
     <Tailwind>
       <Head>
@@ -51,14 +57,17 @@ function NewsletterEmail({ json, blocks, author, socialLinks, address }: Newslet
       </Head>
       <div className="max-w-screen-md mx-auto py-8 gap-8">
         <RichText
-          content={json}
+          content={content}
           blocks={blocks}
           components={{
             ...defaultComponents,
             CalloutBoxComponent: ({ title, content }) => (
               <div className="rounded-xl p-6 mb-8 bg-gray-50">
                 <h2 className="text-2xl font-medium mb-4">{title}</h2>
-                <RichText content={content.json.content} components={defaultComponents} />
+                <RichText
+                  content={content.json.content}
+                  components={defaultComponents}
+                />
               </div>
             ),
           }}
@@ -68,7 +77,9 @@ function NewsletterEmail({ json, blocks, author, socialLinks, address }: Newslet
           {author && (
             <>
               <div className="mb-4">
-                <p className="italic alex-brush-regular text-4xl mb-1 mt-0">{author.signatureName}</p>
+                <p className="italic alex-brush-regular text-4xl mb-1 mt-0">
+                  {author.signatureName}
+                </p>
                 <p className="font-medium mt-0">
                   {author.name}–{author.role}
                 </p>
@@ -90,11 +101,13 @@ function NewsletterEmail({ json, blocks, author, socialLinks, address }: Newslet
                 ))}
             </div>
           )}
-          <pre className="text-sm text-gray-400 whitespace-pre-line block">{address}</pre>
+          <pre className="text-sm text-gray-400 whitespace-pre-line block">
+            {address}
+          </pre>
         </div>
       </div>
     </Tailwind>
-  );
+  )
 }
 
 NewsletterEmail.PreviewProps = {
@@ -343,29 +356,51 @@ NewsletterEmail.PreviewProps = {
   ],
   address: `401 Broadway
 New York, NY, 10013`,
-};
+}
 
-export default NewsletterEmail;
+export default NewsletterEmail
 
 const defaultComponents: RichTextProps['components'] = {
-  h1: ({ children }) => <h1 className="text-4xl font-serif mb-6">{children}</h1>,
-  h2: ({ children }) => <h2 className="text-3xl font-medium text-gray-900 mb-8">{children}</h2>,
-  h3: ({ children }) => <h3 className="text-xl font-medium mb-4">{children}</h3>,
-  h4: ({ children }) => <h4 className="text-xl font-medium mb-4">{children}</h4>,
-  p: ({ children }) => <p className="text-gray-700 leading-relaxed mb-4">{children}</p>,
+  h1: ({ children }) => (
+    <h1 className="text-4xl font-serif mb-6">{children}</h1>
+  ),
+  h2: ({ children }) => (
+    <h2 className="text-3xl font-medium text-gray-900 mb-8">{children}</h2>
+  ),
+  h3: ({ children }) => (
+    <h3 className="text-xl font-medium mb-4">{children}</h3>
+  ),
+  h4: ({ children }) => (
+    <h4 className="text-xl font-medium mb-4">{children}</h4>
+  ),
+  p: ({ children }) => (
+    <p className="text-gray-700 leading-relaxed mb-4">{children}</p>
+  ),
   img: ({ src, alt, caption }) => (
     <figure className="flex flex-col items-center mb-8">
-      <img src={src} alt={alt} className="rounded-xl w-full object-cover mb-3" />
-      {caption && <figcaption className="text-gray-400 text-sm">{caption}</figcaption>}
+      <img
+        src={src}
+        alt={alt}
+        className="rounded-xl w-full object-cover mb-3"
+      />
+      {caption && (
+        <figcaption className="text-gray-400 text-sm">{caption}</figcaption>
+      )}
     </figure>
   ),
   b: (props) => <strong {...props} className="font-medium" />,
   blockquote: ({ ...props }) => (
-    <blockquote {...props} className="border-0 pl-8 ml-0 border-l-4 border-solid border-gray-200 [&>b]:text-sm" />
+    <blockquote
+      {...props}
+      className="border-0 pl-8 ml-0 border-l-4 border-solid border-gray-200 [&>b]:text-sm"
+    />
   ),
   a: ({ href, children }) => (
-    <Link href={href} className="text-gray-400 hover:text-gray-600 transition-colors">
+    <Link
+      href={href}
+      className="text-gray-400 hover:text-gray-600 transition-colors"
+    >
       {children}
     </Link>
   ),
-};
+}

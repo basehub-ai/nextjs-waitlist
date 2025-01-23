@@ -1,4 +1,4 @@
-import { fragmentOn } from 'basehub';
+import { fragmentOn } from 'basehub'
 
 export const backgroundFragment = fragmentOn('Background', {
   color1: {
@@ -13,6 +13,7 @@ export const backgroundFragment = fragmentOn('Background', {
   color4: {
     hex: true,
   },
-});
+  speed: true,
+})
 
-export type BackgroundFragment = fragmentOn.infer<typeof backgroundFragment>;
+export type BackgroundFragment = fragmentOn.infer<typeof backgroundFragment>

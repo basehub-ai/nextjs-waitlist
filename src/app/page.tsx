@@ -1,10 +1,10 @@
-import { Pump } from 'basehub/react-pump';
-import { RichText } from 'basehub/react-rich-text';
-import { sendEvent, parseFormData } from 'basehub/events';
-import { InputForm } from '~/components/waitlist-form';
-import { WaitlistWrapper } from '~/components/box';
+import { Pump } from 'basehub/react-pump'
+import { RichText } from 'basehub/react-rich-text'
+import { sendEvent, parseFormData } from 'basehub/events'
+import { InputForm } from '~/components/waitlist-form'
+import { WaitlistWrapper } from '~/components/box'
 
-export const dynamic = 'force-static';
+export const dynamic = 'force-static'
 
 export default async function Home() {
   return (
@@ -31,11 +31,11 @@ export default async function Home() {
       ]}
     >
       {async ([{ waitlist }]) => {
-        'use server';
+        'use server'
 
-        const emailInput = waitlist.input.schema[0];
+        const emailInput = waitlist.input.schema[0]
         if (!emailInput) {
-          console.warn('No email input found');
+          console.warn('No email input found')
         }
         return (
           <WaitlistWrapper>
@@ -59,27 +59,31 @@ export default async function Home() {
                     success: waitlist.button.successCopy,
                   }}
                   formAction={async (data) => {
-                    'use server';
+                    'use server'
                     try {
-                      const parsedData = parseFormData(waitlist.input.ingestKey, waitlist.input.schema, data);
+                      const parsedData = parseFormData(
+                        waitlist.input.ingestKey,
+                        waitlist.input.schema,
+                        data
+                      )
                       if (!parsedData.success) {
-                        console.error(parsedData.errors);
+                        console.error(parsedData.errors)
                         return {
                           success: false,
                           error:
                             parsedData.errors[emailInput.name] ||
                             Object.values(parsedData.errors)[0] ||
                             'Unknown error',
-                        };
+                        }
                       }
-                      await sendEvent(waitlist.input.ingestKey, parsedData.data);
-                      return { success: true };
+                      await sendEvent(waitlist.input.ingestKey, parsedData.data)
+                      return { success: true }
                     } catch (error) {
-                      console.error(error);
+                      console.error(error)
                       return {
                         success: false,
                         error: 'There was an error while submitting the form',
-                      };
+                      }
                     }
                   }}
                   {...emailInput}
@@ -87,8 +91,8 @@ export default async function Home() {
               )}
             </div>
           </WaitlistWrapper>
-        );
+        )
       }}
     </Pump>
-  );
+  )
 }

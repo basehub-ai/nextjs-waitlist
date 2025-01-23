@@ -1,88 +1,76 @@
-import { basehub } from 'basehub';
-import { authenticateWebhook } from 'basehub/workflows';
-import { getEvents } from 'basehub/events';
-import { resend } from '~/lib/resend';
-import NewsletterEmail from '../../../../../emails/newsletter';
+import { basehub } from 'basehub'
+import { authenticateWebhook } from 'basehub/workflows'
+import { getEvents } from 'basehub/events'
+import { resend } from '~/lib/resend'
+import NewsletterEmail from '../../../../../emails/newsletter'
 
 export const POST = async (request: Request) => {
-  'use server';
-  const {
-    newsletter: {
-      emailPost: { webhookSecret },
+  'use server'
+  const data = await basehub().query({
+    settings: {
+      address: true,
     },
-  } = await basehub().query({
     newsletter: {
+      emailFrom: true,
       emailPost: {
         webhookSecret: true,
-        __scalar: true,
+      },
+      socialMedia: {
+        image: {
+          url: true,
+        },
+        _title: true,
+        url: true,
       },
     },
-  });
+    waitlist: {
+      input: {
+        adminKey: true,
+      },
+    },
+  })
 
   const parsedRequest = await authenticateWebhook({
     body: request.body,
-    secret: webhookSecret,
+    secret: data.newsletter.emailPost.webhookSecret,
     signature: request.headers.get('x-basehub-webhook-signature'),
-  });
+  })
 
   if (!parsedRequest.success) {
     return new Response(parsedRequest.error, {
       status: 401,
-    });
+    })
   }
 
-  const [
-    {
-      newsletter: { emails: email, emailFrom, socialMedia },
-      settings: { address },
-    },
-    {
-      waitlist: {
-        input: { adminKey },
-      },
-    },
-  ] = await Promise.all([
-    basehub().query({
-      settings: {
-        address: true,
-      },
-      newsletter: {
-        emailFrom: true,
-        socialMedia: {
-          image: {
-            url: true,
+  const emailQuery = await basehub().query({
+    newsletter: {
+      emails: {
+        __args: {
+          filter: {
+            _sys_id: {
+              eq: parsedRequest.payload.data.blockId,
+            },
           },
-          _title: true,
-          url: true,
         },
-        emails: {
-          __args: {
-            filter: {
-              _sys_id: {
-                eq: (parsedRequest.payload as any).data.blockId,
-              },
-            },
+        item: {
+          _title: true,
+          subject: true,
+          author: {
+            signatureName: true,
+            role: true,
+            name: true,
           },
-          item: {
-            _title: true,
-            subject: true,
-            author: {
-              signatureName: true,
-              role: true,
-              name: true,
-            },
-            content: {
-              json: {
-                content: true,
-                blocks: {
-                  on_CalloutBoxComponent: {
-                    _id: true,
-                    __typename: true,
-                    title: true,
-                    content: {
-                      json: {
-                        content: true,
-                      },
+          content: {
+            json: {
+              content: true,
+              blocks: {
+                on_CalloutBoxComponent: {
+                  _id: true,
+                  __typename: true,
+                  title: true,
+                  content: {
+                    json: {
+                      content: true,
                     },
                   },
                 },
@@ -91,60 +79,69 @@ export const POST = async (request: Request) => {
           },
         },
       },
-    }),
-    basehub().query({
-      waitlist: {
-        input: {
-          adminKey: true,
-        },
-      },
-    }),
-  ]);
+    },
+  })
 
-  if (!email.item) {
+  if (!emailQuery.newsletter.emails.item) {
     return new Response('Post not found', {
       status: 404,
-    });
+    })
   }
 
-  const recipients = await getEvents(adminKey, {
+  const recipients = await getEvents(data.waitlist.input.adminKey, {
     type: 'table',
-  });
+  })
 
   if (!recipients.success) {
     return new Response(recipients.error, {
       status: 401,
-    });
+    })
   }
+
+  const emailsProcessed = new Set<string>()
+
   for (const subsBatch of chunk(
     recipients.data.filter((v) => v.email),
     100
   )) {
     await resend.batch.send(
-      subsBatch.map(({ email: emailAddress, id }) => {
-        return {
-          to: emailAddress!,
-          from: emailFrom,
-          subject: email.item!.subject,
-          react: (
-            <NewsletterEmail
-              blocks={email.item?.content.json.blocks}
-              json={email.item?.content.json.content}
-              address={address}
-              author={email.item!.author}
-              socialLinks={socialMedia}
-            />
-          ),
-        };
-      })
-    );
+      subsBatch
+        .map(({ email, id }) => {
+          if (emailsProcessed.has(email)) {
+            return null
+          }
+
+          emailsProcessed.add(email)
+
+          return {
+            to: email,
+            from: data.newsletter.emailFrom,
+            subject: emailQuery.newsletter.emails.item!.subject,
+            react: (
+              <NewsletterEmail
+                blocks={emailQuery.newsletter.emails.item?.content.json.blocks}
+                content={
+                  emailQuery.newsletter.emails.item?.content.json.content
+                }
+                address={data.settings.address}
+                author={emailQuery.newsletter.emails.item!.author}
+                socialLinks={data.newsletter.socialMedia}
+              />
+            ),
+          }
+        })
+        .filter((e) => e !== null)
+    )
   }
 
-  return new Response('Email sent', {
+  return new Response('Emails sent', {
     status: 200,
-  });
-};
+  })
+}
 
 function chunk<T>(arr: T[], size: number): T[][] {
-  return arr.reduce((acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]), [] as T[][]);
+  return arr.reduce(
+    (acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]),
+    [] as T[][]
+  )
 }

@@ -1,18 +1,24 @@
-'use client';
+'use client'
 
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import clsx from 'clsx';
+import React from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import clsx from 'clsx'
 
 // Constants for sizing
-const LINK_WIDTH = 90;
-const PADDING = 24;
-const BACKGROUND_PADDING = 20;
+const LINK_WIDTH = 90
+const PADDING = 24
+const BACKGROUND_PADDING = 20
 
 // NavbarLink component
-export const NavbarLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
-  const pathname = usePathname();
+export const NavbarLink = ({
+  href,
+  children,
+}: {
+  href: string
+  children: React.ReactNode
+}) => {
+  const pathname = usePathname()
   return (
     <Link
       href={href}
@@ -21,21 +27,23 @@ export const NavbarLink = ({ href, children }: { href: string; children: React.R
     >
       {children}
     </Link>
-  );
-};
+  )
+}
 
 // NavbarLinkBackground component
 export const NavbarLinkBackground = ({ links }: { links: string[] }) => {
-  const pathname = usePathname();
-  const activeIndex = links.indexOf(pathname);
+  const pathname = usePathname()
+  const activeIndex = links.indexOf(pathname)
 
   return (
     <div
-      className={clsx('absolute transition-all duration-200 ease-in-out h-7 rounded-full bg-slate-3')}
+      className={clsx(
+        'absolute transition-all duration-200 ease-in-out h-7 rounded-full bg-slate-3'
+      )}
       style={{
         width: `90px`,
         left: `calc((${activeIndex} * 90px) + 4px)`,
       }}
     />
-  );
-};
+  )
+}

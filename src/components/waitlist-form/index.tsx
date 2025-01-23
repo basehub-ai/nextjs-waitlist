@@ -1,67 +1,72 @@
-'use client';
-import clsx from 'clsx';
-import { useRef, useState } from 'react';
+'use client'
+import clsx from 'clsx'
+import { useRef, useState } from 'react'
 
 type InputForm = {
-  formAction?: (data: FormData) => Promise<{ success: true } | { success: false; error: string }>;
+  formAction?: (
+    data: FormData
+  ) => Promise<{ success: true } | { success: false; error: string }>
   buttonCopy: {
-    success: string;
-    idle: string;
-  };
-} & React.HTMLAttributes<HTMLInputElement>;
+    success: string
+    idle: string
+  }
+} & React.HTMLAttributes<HTMLInputElement>
 
-type State = 'idle' | 'loading' | 'success' | 'error';
+type State = 'idle' | 'loading' | 'success' | 'error'
 
 const STATES: Record<State, State> = {
   idle: 'idle',
   loading: 'loading',
   success: 'success',
   error: 'error',
-};
+}
 
 export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
-  const [state, setState] = useState<State>(STATES.idle);
-  const [error, setError] = useState<string>();
-  const [value, setValue] = useState('');
-  const errorTimeout = useRef<NodeJS.Timeout | null>(null);
+  const [state, setState] = useState<State>(STATES.idle)
+  const [error, setError] = useState<string>()
+  const [value, setValue] = useState('')
+  const errorTimeout = useRef<NodeJS.Timeout | null>(null)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (state === STATES.success || state === STATES.loading) return;
+    e.preventDefault()
+    if (state === STATES.success || state === STATES.loading) return
     if (errorTimeout.current) {
-      clearTimeout(errorTimeout.current);
-      setError(undefined);
-      setState(STATES.idle);
+      clearTimeout(errorTimeout.current)
+      setError(undefined)
+      setState(STATES.idle)
     }
     if (formAction && typeof formAction === 'function') {
       try {
-        setState(STATES.loading);
-        const data = await formAction(new FormData(e.currentTarget));
+        setState(STATES.loading)
+        const data = await formAction(new FormData(e.currentTarget))
         if (data.success) {
-          setState(STATES.success);
+          setState(STATES.success)
         } else {
-          setState(STATES.error);
-          setError(data.error);
+          setState(STATES.error)
+          setError(data.error)
           errorTimeout.current = setTimeout(() => {
-            setError(undefined);
-            setState(STATES.idle);
-          }, 3000);
+            setError(undefined)
+            setState(STATES.idle)
+          }, 3000)
         }
       } catch (error) {
-        setState(STATES.error);
-        setError('There was an error while submitting the form');
-        console.error(error);
+        setState(STATES.error)
+        setError('There was an error while submitting the form')
+        console.error(error)
         errorTimeout.current = setTimeout(() => {
-          setError(undefined);
-          setState(STATES.idle);
-        }, 3000);
+          setError(undefined)
+          setState(STATES.idle)
+        }, 3000)
       }
     }
-  };
-  const isSubmitted = state === 'success';
-  const inputDisabled = state === 'loading' || isSubmitted;
+  }
+  const isSubmitted = state === 'success'
+  const inputDisabled = state === 'loading' || isSubmitted
 
   return (
-    <form className="flex flex-col gap-2 w-full relative" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col gap-2 w-full relative"
+      onSubmit={handleSubmit}
+    >
       <div className="flex items-center justify-between gap-3 relative">
         <input
           {...props}
@@ -97,13 +102,17 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
         </button>
       </div>
       <div className="w-full h-2" />
-      {error && <p className="absolute text-xs text-[#ff0000] top-full -translate-y-1/2 px-2">{error}</p>}
+      {error && (
+        <p className="absolute text-xs text-[#ff0000] top-full -translate-y-1/2 px-2">
+          {error}
+        </p>
+      )}
     </form>
-  );
+  )
 }
 
 const Loading = () => (
   <div className="flex items-center gap-2">
     <div className="w-4 h-4 rounded-full border border-[currentColor] !border-t-[transparent] animate-spin" />
   </div>
-);
+)

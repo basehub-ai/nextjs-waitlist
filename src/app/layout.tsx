@@ -1,18 +1,19 @@
-import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
-import './globals.css';
-import { Providers } from '~/context';
-import { Header } from '~/components/header';
-import { Toolbar } from 'basehub/next-toolbar';
-import { GradientBackground } from '~/components/gradient';
-import { basehub } from 'basehub';
-import { Pump } from 'basehub/react-pump';
-import { backgroundFragment } from '~/components/gradient/_fragment';
+import type { Metadata } from 'next'
+import { Geist } from 'next/font/google'
+import './globals.css'
+import { Providers } from '~/context'
+import { Header } from '~/components/header'
+import { Toolbar } from 'basehub/next-toolbar'
+import { GradientBackground } from '~/components/gradient'
+import { basehub } from 'basehub'
+import { Pump } from 'basehub/react-pump'
+import { backgroundFragment } from '~/components/gradient/_fragment'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
-});
+  preload: true,
+})
 
 export const generateMetadata = async (): Promise<Metadata> => {
   const data = await basehub().query({
@@ -28,7 +29,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
         },
       },
     },
-  });
+  })
   return {
     title: {
       template: data.settings.metadata.titleTemplate,
@@ -43,13 +44,13 @@ export const generateMetadata = async (): Promise<Metadata> => {
       images: [data.settings.metadata.ogImage.url],
     },
     icons: [data.settings.metadata.favicon.url],
-  };
-};
+  }
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -57,14 +58,26 @@ export default async function RootLayout({
         className={`${geistSans.className} antialiased max-w-screen min-h-svh bg-slate-1 text-slate-12 opacity-0 duration-75 transition-opacity`}
       >
         <Providers>
-          <Pump queries={[{ settings: { theme: { background: { ...backgroundFragment, speed: true } } } }]}>
+          <Pump
+            queries={[
+              {
+                settings: {
+                  background: { ...backgroundFragment, speed: true },
+                },
+              },
+            ]}
+          >
             {async ([{ settings }]) => {
-              'use server';
+              'use server'
               return (
-                <GradientBackground theme={settings.theme.background} speed={settings.theme.background.speed}>
-                  <canvas id="gradient-canvas" className="fixed top-0 left-0 w-full h-full -z-1" data-transition-in />
+                <GradientBackground {...settings.background}>
+                  <canvas
+                    id="gradient-canvas"
+                    className="fixed top-0 left-0 w-full h-full -z-1"
+                    data-transition-in
+                  />
                 </GradientBackground>
-              );
+              )
             }}
           </Pump>
           <div className="max-w-screen-sm mx-auto w-full relative z-[1] flex flex-col min-h-screen">
@@ -77,5 +90,5 @@ export default async function RootLayout({
         </Providers>
       </body>
     </html>
-  );
+  )
 }

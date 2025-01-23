@@ -1,10 +1,10 @@
-import { Pump } from 'basehub/react-pump';
-import { Icon } from 'basehub/react-icon';
-import clsx from 'clsx';
-import { PropsWithChildren, ReactNode } from 'react';
-import { ThemeSwitcher } from '../switch-theme';
-import { RichText } from 'basehub/react-rich-text';
-import { DarkLightImage, darkLightImageFragment } from '../dark-light-image';
+import { Pump } from 'basehub/react-pump'
+import { Icon } from 'basehub/react-icon'
+import clsx from 'clsx'
+import { PropsWithChildren, ReactNode } from 'react'
+import { ThemeSwitcher } from '../switch-theme'
+import { RichText } from 'basehub/react-rich-text'
+import { DarkLightImage, darkLightImageFragment } from '../dark-light-image'
 
 export async function WaitlistWrapper({ children }: PropsWithChildren) {
   return (
@@ -30,13 +30,17 @@ export async function WaitlistWrapper({ children }: PropsWithChildren) {
                 settings: { logo },
               },
             ]) => {
-              'use server';
-              if (!logo) return null;
+              'use server'
+              if (!logo) return null
               return (
                 <div className="flex justify-center w-32 h-auto items-center mx-auto">
-                  <DarkLightImage dark={logo.dark} light={logo.light} priority />
+                  <DarkLightImage
+                    dark={logo.dark}
+                    light={logo.light}
+                    priority
+                  />
                 </div>
-              );
+              )
             }}
           </Pump>
         </div>
@@ -60,7 +64,7 @@ export async function WaitlistWrapper({ children }: PropsWithChildren) {
             footer: { copyright },
           },
         ]) => {
-          'use server';
+          'use server'
           return (
             <footer className="flex justify-between items-center w-full self-stretch px-8 py-3 text-sm border-gray-12/5 border-t bg-gray-1/30 overflow-hidden">
               {copyright && copyright.json.content ? (
@@ -69,23 +73,27 @@ export async function WaitlistWrapper({ children }: PropsWithChildren) {
                   disableDefaultComponents
                   components={{
                     p: function Paragraph({ children }) {
-                      return <p className="text-xs text-slate-10">{children}</p>;
+                      return <p className="text-xs text-slate-10">{children}</p>
                     },
                     a: function Link({ href, children, target }) {
                       return (
-                        <a href={href} target={target} className="underline font-medium text-slate-12">
+                        <a
+                          href={href}
+                          target={target}
+                          className="underline font-medium text-slate-12"
+                        >
                           {children}
                         </a>
-                      );
+                      )
                     },
                   }}
                 />
               ) : null}
               <ThemeSwitcher />
             </footer>
-          );
+          )
         }}
       </Pump>
     </div>
-  );
+  )
 }

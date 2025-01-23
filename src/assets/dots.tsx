@@ -1,4 +1,4 @@
-import { SVGProps } from 'react';
+import { SVGProps } from 'react'
 
 export const Dots = (props: SVGProps<SVGSVGElement>) => {
   return (
@@ -10,5 +10,5 @@ export const Dots = (props: SVGProps<SVGSVGElement>) => {
       </defs>
       <rect width="100%" height="100%" fill="url(#dots)" />
     </svg>
-  );
-};
+  )
+}
