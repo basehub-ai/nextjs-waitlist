@@ -11,9 +11,8 @@ import {
   Text,
   TextProps,
   Link,
-  Row,
-  Column,
   Section,
+  Head,
 } from '@react-email/components'
 import { fragmentOn } from 'basehub'
 
@@ -54,7 +53,21 @@ function NewsletterEmail({
 }: NewsletterEmailProps) {
   return (
     <Tailwind>
-      <div className="max-w-screen-md mx-auto py-8 gap-8">
+      <Head>
+        <style>
+          {`
+          ul li p,
+          ol li p {
+             margin-bottom: 12px !important; 
+            }
+
+          blackquote p {
+            margin-block: 12px !important; 
+          }
+         `}
+        </style>
+      </Head>
+      <div className="max-w-screen-md mx-auto py-8 px-2 gap-8">
         <RichText
           content={content}
           blocks={blocks}
@@ -75,13 +88,13 @@ function NewsletterEmail({
         <div>
           {author && (
             <>
-              <div className="mb-8">
+              <div className="">
                 {/* cursive font */}
                 <p className='font-["Brush_Script_MT",_"Brush_Script_Std",_cursive] text-3xl text-[#1C2024] mb-0 mt-0'>
                   {author.signatureName}
                 </p>
                 <p className="eading-relaxed font-[Helvetica,_'ui-sans-serif'] text-base font-medium mt-0 !text-xs text-[#1C2024]">
-                  {author.name}–{author.role}
+                  {author.name}, {author.role}
                 </p>
               </div>
               <Hr />
@@ -151,7 +164,7 @@ function NewsletterEmail({
           )}
           {unsubscribeLink && (
             <p className="text-xs text-[#60646C] mb-4 eading-relaxed font-[Helvetica,_'ui-sans-serif'] mt-0">
-              <A href={unsubscribeLink}>Unsubscribe</A> from these emails
+              <A href={unsubscribeLink}>Unsubscribe</A> from these emails.
             </p>
           )}
           <pre className="text-sm font-[Helvetica,_'ui-sans-serif'] !text-[#B9BBC6] block">
@@ -421,7 +434,7 @@ New York, NY, 10013`,
 }
 
 const Hr = () => (
-  <hr className="border-0 border-b border-solid border-[#E8E8EC] mb-8 mt-0" />
+  <hr className="border-0 border-b border-solid border-[#E8E8EC] my-8" />
 )
 
 const A = (props: LinkProps) => {
@@ -429,13 +442,7 @@ const A = (props: LinkProps) => {
 }
 
 const P = ({ children }: TextProps) => (
-  <Text
-    className="leading-relaxed font-[Helvetica,_'ui-sans-serif'] text-[#60646C] text-base"
-    style={{
-      marginTop: 0,
-      marginBottom: 32,
-    }}
-  >
+  <Text className="leading-relaxed font-[Helvetica,_'ui-sans-serif'] text-[#60646C] text-base mb-5">
     {children}
   </Text>
 )
@@ -444,7 +451,7 @@ const defaultComponents: RichTextProps['components'] = {
   h1: ({ children }) => (
     <Heading
       as="h1"
-      className="leading-none font-normal text-4xl font-[Georgia,_'ui-serif'] mb-2 text-[#1C2024]"
+      className="leading-none font-normal text-4xl font-[Georgia,_'ui-serif'] mt-8 mb-2 text-[#1C2024]"
     >
       {children}
     </Heading>
@@ -452,7 +459,7 @@ const defaultComponents: RichTextProps['components'] = {
   h2: ({ children }) => (
     <Heading
       as="h2"
-      className="leading-none font-normal font-[Georgia,_'ui-serif'] text-2xl mb-2 text-[#1C2024]"
+      className="leading-none font-normal font-[Georgia,_'ui-serif'] text-2xl mt-8 mb-2 text-[#1C2024]"
     >
       {children}
     </Heading>
@@ -460,7 +467,7 @@ const defaultComponents: RichTextProps['components'] = {
   h3: ({ children }) => (
     <Heading
       as="h3"
-      className="leading-none font-normal font-[Georgia,_'ui-serif'] text-xl mb-2 text-[#1C2024]"
+      className="leading-none font-normal font-[Georgia,_'ui-serif'] text-xl mt-8 mb-2 text-[#1C2024]"
     >
       {children}
     </Heading>
@@ -468,7 +475,7 @@ const defaultComponents: RichTextProps['components'] = {
   h4: ({ children }) => (
     <Heading
       as="h4"
-      className="leading-none font-normal font-[Georgia,_'ui-serif'] text-xl mb-2 text-[#1C2024]"
+      className="leading-none font-normal font-[Georgia,_'ui-serif'] text-xl mt-8 mb-2 text-[#1C2024]"
     >
       {children}
     </Heading>
@@ -484,9 +491,9 @@ const defaultComponents: RichTextProps['components'] = {
       />
     )
   },
-  code: ({ children }) => <CodeInline>{children}</CodeInline>,
+  code: ({ children }) => <CodeInline className="mb-5">{children}</CodeInline>,
   img: ({ src, alt, caption }) => (
-    <figure className="mb-8 mx-0">
+    <figure className="mb-5 mx-0">
       <Img
         src={src}
         alt={alt}
