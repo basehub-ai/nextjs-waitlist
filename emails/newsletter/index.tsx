@@ -12,6 +12,7 @@ import {
   TextProps,
   Link,
   Row,
+  Column,
 } from '@react-email/components'
 import { fragmentOn } from 'basehub'
 
@@ -28,6 +29,7 @@ const socialMediaFragment = fragmentOn('SocialLinkComponent', {
     url: true,
   },
 })
+
 type SocialMedia = fragmentOn.infer<typeof socialMediaFragment>
 
 type AuthorFragment = fragmentOn.infer<typeof authorFragment>
@@ -74,10 +76,10 @@ function NewsletterEmail({
             <>
               <div className="mb-8">
                 {/* cursive font */}
-                <P className='font-["Brush_Script_MT",_"Brush_Script_Std",_cursive] text-xl'>
+                <P className='font-["Brush_Script_MT",_"Brush_Script_Std",_cursive] text-3xl text-[#1C2024]'>
                   {author.signatureName}
                 </P>
-                <P className="font-medium mt-0">
+                <P className="font-medium mt-0 !text-xs text-[#1C2024]">
                   {author.name}–{author.role}
                 </P>
               </div>
@@ -85,18 +87,22 @@ function NewsletterEmail({
             </>
           )}
           {socialLinks && (
-            <Row>
-              {socialLinks
-                .filter((item) => item.image)
-                .map((item) => (
-                  <Link
-                    href={item.url}
-                    className="mb-4 w-4 h-4 p-2 bg-[#F0F0F3)] flex justify-center rounded-full"
-                  >
-                    <Img src={item.image!.url} />
-                  </Link>
-                ))}
-            </Row>
+            <Column align="left">
+              <Row align="left">
+                {socialLinks
+                  .filter((item) => item.image)
+                  .map((item) => (
+                    <Column className="mr-[16px]">
+                      <Link
+                        href={item.url}
+                        className="w-4 h-4 p-2 bg-[#F0F0F3)] rounded-full"
+                      >
+                        <Img src={item.image!.url} />
+                      </Link>
+                    </Column>
+                  ))}
+              </Row>
+            </Column>
           )}
           {unsubscribeLink && (
             <p className="text-xs text-[#60646C] mb-4">
@@ -361,10 +367,8 @@ NewsletterEmail.PreviewProps = {
 New York, NY, 10013`,
 }
 
-export default NewsletterEmail
-
 const Hr = () => (
-  <hr className="border-0 border-b border-solid border-[#E8E8EC]" />
+  <hr className="border-0 border-b border-solid border-[#E8E8EC] mb-8 mt-0" />
 )
 
 const A = (props: LinkProps) => {
@@ -373,7 +377,7 @@ const A = (props: LinkProps) => {
 
 const P = ({ children, className }: TextProps) => (
   <Text
-    className={`leading-relaxed font-[Helvetica,_'ui-sans-serif'] text-[#60646C] text-base ${className}`}
+    className={`leading-relaxed font-[Helvetica,_'ui-sans-serif'] text-[#60646C] text-base mt-0 mb-8 ${className}`}
   >
     {children}
   </Text>
@@ -383,7 +387,7 @@ const defaultComponents: RichTextProps['components'] = {
   h1: ({ children }) => (
     <Heading
       as="h1"
-      className="leading-none text-4xl font-[Georgia,_'ui-serif'] mb-2 text-[#1C2024]"
+      className="leading-none font-normal text-4xl font-[Georgia,_'ui-serif'] mb-2 text-[#1C2024]"
     >
       {children}
     </Heading>
@@ -391,7 +395,7 @@ const defaultComponents: RichTextProps['components'] = {
   h2: ({ children }) => (
     <Heading
       as="h2"
-      className="leading-none font-[Georgia,_'ui-serif'] text-2xl mb-2 text-[#1C2024]"
+      className="leading-none font-normal font-[Georgia,_'ui-serif'] text-2xl mb-2 text-[#1C2024]"
     >
       {children}
     </Heading>
@@ -399,7 +403,7 @@ const defaultComponents: RichTextProps['components'] = {
   h3: ({ children }) => (
     <Heading
       as="h3"
-      className="leading-none font-[Georgia,_'ui-serif'] text-xl mb-2 text-[#1C2024]"
+      className="leading-none font-normal font-[Georgia,_'ui-serif'] text-xl mb-2 text-[#1C2024]"
     >
       {children}
     </Heading>
@@ -407,7 +411,7 @@ const defaultComponents: RichTextProps['components'] = {
   h4: ({ children }) => (
     <Heading
       as="h4"
-      className="leading-none font-[Georgia,_'ui-serif'] text-xl mb-2 text-[#1C2024]"
+      className="leading-none font-normal font-[Georgia,_'ui-serif'] text-xl mb-2 text-[#1C2024]"
     >
       {children}
     </Heading>
@@ -465,3 +469,5 @@ const defaultComponents: RichTextProps['components'] = {
   video: ({ children }) => <div className="overflow-hidden">{children}</div>, // not available in mail
   hr: Hr,
 }
+
+export default NewsletterEmail
