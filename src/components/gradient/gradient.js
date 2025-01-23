@@ -432,17 +432,27 @@ class MiniGl {
     }
   }
   setSize(e = 640, t = 480) {
-    ;(this.width = e),
-      (this.height = t),
-      (this.canvas.width = e),
-      (this.canvas.height = t),
-      this.gl.viewport(0, 0, e, t),
-      (this.commonUniforms.resolution.value = [e, t]),
-      (this.commonUniforms.aspectRatio.value = e / t),
-      this.debug('MiniGL.setSize', {
-        width: e,
-        height: t,
-      })
+    const dpr = window.devicePixelRatio || 1
+    this.width = e
+    this.height = t
+    // Set canvas drawing buffer size scaled by DPR
+    this.canvas.width = e * dpr
+    this.canvas.height = t * dpr
+    // Set canvas display size in CSS pixels
+    this.canvas.style.width = window.innerWidth + 'px'
+    this.canvas.style.height = window.innerHeight + 'px'
+    // Update viewport to match drawing buffer dimensions
+    this.gl.viewport(0, 0, e * dpr, t * dpr)
+    // Update uniforms with actual pixel resolution
+    this.commonUniforms.resolution.value = [e * dpr, t * dpr]
+    this.commonUniforms.aspectRatio.value = e / t
+    // Update position
+
+    this.debug('MiniGL.setSize', {
+      width: e,
+      height: t,
+      dpr: dpr,
+    })
   }
   //left, right, top, bottom, near, far
   setOrthographicCamera(e = 0, t = 0, n = 0, i = -2e3, s = 2e3) {
@@ -948,6 +958,7 @@ class Gradient {
   initGradient(selector) {
     this.el = document.querySelector(selector)
     this.connect()
+    this.minigl.setSize(this.width, this.height)
     return this
   }
 }
