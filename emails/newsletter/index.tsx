@@ -13,6 +13,7 @@ import {
   Link,
   Row,
   Column,
+  Section,
 } from '@react-email/components'
 import { fragmentOn } from 'basehub'
 
@@ -87,53 +88,47 @@ function NewsletterEmail({
             </>
           )}
           {socialLinks && (
-            <section
+            <Section
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
+                textAlign: 'left',
                 padding: 0,
                 margin: 0,
-                marginBottom: '16px',
+                marginBottom: 16,
               }}
             >
               {socialLinks
-                .filter((item) => item.image)
+                ?.filter((item) => item.image)
                 .map((item) => (
                   <Link
                     key={item.url}
                     href={item.url}
                     style={{
-                      display: 'block',
+                      display: 'inline-block',
+                      backgroundColor: '#F0F0F3',
+                      borderRadius: '50%',
+                      width: 32,
+                      height: 32,
+                      padding: '8px',
+                      marginRight: 16,
                       textDecoration: 'none',
-                      marginRight: '12px',
                     }}
                   >
-                    <div
+                    <Img
+                      src={item.image?.url}
+                      alt={item._title || 'Social icon'}
+                      width={16}
+                      height={16}
                       style={{
-                        width: '32px',
-                        height: '32px',
-                        backgroundColor: '#F0F0F3',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        display: 'block',
+                        margin: '0 auto',
+                        lineHeight: 0,
+                        outline: 'none',
+                        border: 'none',
                       }}
-                    >
-                      <Img
-                        src={item.image?.url}
-                        alt={item._title || 'Social icon'}
-                        width="16"
-                        height="16"
-                        style={{
-                          display: 'block',
-                          maxWidth: '100%',
-                        }}
-                      />
-                    </div>
+                    />
                   </Link>
                 ))}
-            </section>
+            </Section>
           )}
           {unsubscribeLink && (
             <p className="text-xs text-[#60646C] mb-4 eading-relaxed font-[Helvetica,_'ui-sans-serif'] mt-0">
