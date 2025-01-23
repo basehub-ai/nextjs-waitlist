@@ -73,7 +73,7 @@ export async function WaitlistWrapper({ children }: PropsWithChildren) {
         ]) => {
           'use server'
           return (
-            <footer className="flex justify-between items-center w-full self-stretch px-8 py-3 text-sm border-gray-12/5 border-t bg-gray-1/30 overflow-hidden">
+            <footer className="flex justify-between items-center w-full self-stretch px-8 py-3 text-sm bg-gray-12/[.07] overflow-hidden">
               {copyright && copyright.json.content ? (
                 <RichText
                   content={copyright.json.content}
