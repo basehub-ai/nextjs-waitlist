@@ -26,6 +26,7 @@ type NewsletterEmailProps = {
   author?: AuthorFragment | null
   socialLinks?: SocialMedia[] | null
   address?: string | null
+  unsubscribeLink?: string | null
 }
 
 function NewsletterEmail({
@@ -34,6 +35,7 @@ function NewsletterEmail({
   author,
   socialLinks,
   address,
+  unsubscribeLink,
 }: NewsletterEmailProps) {
   return (
     <Tailwind>
@@ -101,6 +103,17 @@ function NewsletterEmail({
                 ))}
             </div>
           )}
+          {unsubscribeLink && (
+            <p className="text-xs text-gray-400 mb-4">
+              <Link
+                className="font-medium underline text-gray-500 decoration-gray-400"
+                href={unsubscribeLink}
+              >
+                Unsubscribe
+              </Link>{' '}
+              from these emails
+            </p>
+          )}
           <pre className="text-sm text-gray-400 whitespace-pre-line block">
             {address}
           </pre>
@@ -111,7 +124,7 @@ function NewsletterEmail({
 }
 
 NewsletterEmail.PreviewProps = {
-  json: [
+  content: [
     {
       type: 'image',
       attrs: {
@@ -332,6 +345,7 @@ NewsletterEmail.PreviewProps = {
     role: 'CEO @ Acme Corp',
     signatureName: 'J. Doe',
   },
+  unsubscribeLink: 'https://basehub.ai/waitlist',
   socialLinks: [
     {
       _title: 'Linkedin',

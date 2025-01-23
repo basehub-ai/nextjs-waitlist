@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist } from 'next/font/google'
 import './globals.css'
 import { Providers } from '~/context'
@@ -45,6 +45,10 @@ export const generateMetadata = async (): Promise<Metadata> => {
     },
     icons: [data.settings.metadata.favicon.url],
   }
+}
+
+export const viewport: Viewport = {
+  maximumScale: 1, // Disable auto-zoom on mobile Safari
 }
 
 export default async function RootLayout({

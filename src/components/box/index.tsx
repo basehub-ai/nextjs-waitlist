@@ -53,6 +53,13 @@ export async function WaitlistWrapper({ children }: PropsWithChildren) {
               copyright: {
                 json: {
                   content: true,
+                  blocks: {
+                    __typename: true,
+                    on_SocialLinkComponent: {
+                      _id: true,
+                      url: true,
+                    },
+                  },
                 },
               },
             },
@@ -70,17 +77,34 @@ export async function WaitlistWrapper({ children }: PropsWithChildren) {
               {copyright && copyright.json.content ? (
                 <RichText
                   content={copyright.json.content}
+                  blocks={copyright.json.blocks}
                   disableDefaultComponents
                   components={{
                     p: function Paragraph({ children }) {
                       return <p className="text-xs text-slate-10">{children}</p>
                     },
-                    a: function Link({ href, children, target }) {
+                    a: function Link({ href, children, internal, ...props }) {
+                      if (internal) {
+                        switch (internal.__typename) {
+                          case 'SocialLinkComponent': {
+                            return (
+                              <a
+                                href={internal.url}
+                                target="_blank"
+                                className="underline font-medium text-slate-12"
+                                {...props}
+                              >
+                                {children}
+                              </a>
+                            )
+                          }
+                        }
+                      }
                       return (
                         <a
                           href={href}
-                          target={target}
                           className="underline font-medium text-slate-12"
+                          {...props}
                         >
                           {children}
                         </a>

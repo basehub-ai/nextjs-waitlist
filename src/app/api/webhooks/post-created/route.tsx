@@ -4,6 +4,8 @@ import { getEvents } from 'basehub/events'
 import { resend } from '~/lib/resend'
 import NewsletterEmail from '../../../../../emails/newsletter'
 
+const siteUrl = process.env.NEXT_PUBLIC_URL
+
 export const POST = async (request: Request) => {
   'use server'
   const data = await basehub().query({
@@ -126,8 +128,13 @@ export const POST = async (request: Request) => {
                 address={data.settings.address}
                 author={emailQuery.newsletter.emails.item!.author}
                 socialLinks={data.newsletter.socialMedia}
+                unsubscribeLink={`${siteUrl}/api/email-unsubscribe?event-id=${id}`}
               />
             ),
+            headers: {
+              'List-Unsubscribe': `<${siteUrl}/api/email-unsubscribe?event-id=${id}>`,
+              'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+            },
           }
         })
         .filter((e) => e !== null)
