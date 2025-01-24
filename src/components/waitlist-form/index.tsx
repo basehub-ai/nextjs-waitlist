@@ -76,6 +76,9 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
           )}
           disabled={inputDisabled}
           onChange={(e) => setValue(e.target.value)}
+          autoComplete="off"
+          data-1p-ignore
+          data-lpignore
         />
         <button
           type="submit"
