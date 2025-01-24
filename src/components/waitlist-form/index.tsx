@@ -79,6 +79,7 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
           autoComplete="off"
           data-1p-ignore
           data-lpignore
+          autoFocus
         />
         <button
           type="submit"
