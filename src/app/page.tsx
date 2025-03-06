@@ -25,6 +25,7 @@ export default async function Home() {
             button: {
               idleCopy: true,
               successCopy: true,
+              submittingCopy: true,
             },
           },
         },
@@ -57,6 +58,7 @@ export default async function Home() {
                   buttonCopy={{
                     idle: waitlist.button.idleCopy,
                     success: waitlist.button.successCopy,
+                    loading: waitlist.button.submittingCopy,
                   }}
                   formAction={async (data) => {
                     'use server'

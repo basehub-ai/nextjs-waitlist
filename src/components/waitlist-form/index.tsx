@@ -9,6 +9,7 @@ type InputForm = {
   buttonCopy: {
     success: string
     idle: string
+    loading: string
   }
 } & React.HTMLAttributes<HTMLInputElement>
 
@@ -95,7 +96,7 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
         >
           {state === 'loading' ? (
             <>
-              Subscribing...
+              {buttonCopy.loading}
               <Loading />
             </>
           ) : isSubmitted ? (
