@@ -62,26 +62,31 @@ export default async function RootLayout({
       <body
         className={`${geistSans.className} antialiased max-w-screen min-h-svh bg-slate-1 text-slate-12 opacity-0 duration-75 transition-opacity`}
       >
-        <Providers>
-          <Pump
-            queries={[
-              {
-                settings: {
-                  background: {
-                    color1: { hex: true },
-                    color2: { hex: true },
-                    color3: { hex: true },
-                    color4: { hex: true },
-                    speed: true,
-                  },
+        <Pump
+          queries={[
+            {
+              settings: {
+                defaultTheme: true,
+                forcedTheme: true,
+                background: {
+                  color1: { hex: true },
+                  color2: { hex: true },
+                  color3: { hex: true },
+                  color4: { hex: true },
+                  speed: true,
                 },
               },
-            ]}
-          >
-            {async ([{ settings }]) => {
-              'use server'
+            },
+          ]}
+        >
+          {async ([{ settings }]) => {
+            'use server'
 
-              return (
+            return (
+              <Providers
+                defaultTheme={settings.defaultTheme || 'system'}
+                forcedTheme={settings.forcedTheme}
+              >
                 <MeshGradientComponent
                   color1={settings.background.color1.hex}
                   color2={settings.background.color2.hex}
@@ -97,17 +102,17 @@ export default async function RootLayout({
                     height: '100%',
                   }}
                 />
-              )
-            }}
-          </Pump>
-          <div className="max-w-screen-sm mx-auto w-full relative z-[1] flex flex-col min-h-screen">
-            <div className="px-5 gap-8 flex flex-col flex-1 py-[12vh]">
-              <Header />
-              <main className="flex justify-center">{children}</main>
-            </div>
-          </div>
-          <Toolbar />
-        </Providers>
+                <div className="max-w-screen-sm mx-auto w-full relative z-[1] flex flex-col min-h-screen">
+                  <div className="px-5 gap-8 flex flex-col flex-1 py-[12vh]">
+                    <Header />
+                    <main className="flex justify-center">{children}</main>
+                  </div>
+                </div>
+                <Toolbar />
+              </Providers>
+            )
+          }}
+        </Pump>
       </body>
     </html>
   )

@@ -62,13 +62,22 @@ export async function WaitlistWrapper({ children }: PropsWithChildren) {
                   },
                 },
               },
+              showThemeSwitcher: true,
+            },
+          },
+          {
+            settings: {
+              forcedTheme: true,
             },
           },
         ]}
       >
         {async ([
           {
-            footer: { copyright },
+            footer: { copyright, showThemeSwitcher },
+          },
+          {
+            settings: { forcedTheme },
           },
         ]) => {
           'use server'
@@ -113,7 +122,9 @@ export async function WaitlistWrapper({ children }: PropsWithChildren) {
                   }}
                 />
               ) : null}
-              <ThemeSwitcher />
+              {Boolean(showThemeSwitcher && !forcedTheme) ? (
+                <ThemeSwitcher />
+              ) : null}
             </footer>
           )
         }}
