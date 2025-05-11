@@ -3,6 +3,7 @@ import { RichText } from 'basehub/react-rich-text'
 import { sendEvent, parseFormData } from 'basehub/events'
 import { InputForm } from '~/components/waitlist-form'
 import { WaitlistWrapper } from '~/components/box'
+import clsx from 'clsx'
 
 export const dynamic = 'force-static'
 
@@ -34,7 +35,12 @@ export default async function Home() {
       {async ([{ waitlist }]) => {
         'use server'
 
-        const emailInput = waitlist.input.schema[0]
+        const emailInput = waitlist.input.schema.find(
+          (input) => input.type === 'email'
+        )
+        const numberInput = waitlist.input.schema.find(
+          (input) => input.type === 'number'
+        )
         if (!emailInput) {
           console.warn('No email input found')
         }
@@ -52,7 +58,7 @@ export default async function Home() {
               )}
             </div>
             {/* Form */}
-            <div className="px-1 flex flex-col w-full self-stretch">
+            <div className="px-1 flex flex-col w-full self-stretch gap-2">
               {emailInput && (
                 <InputForm
                   buttonCopy={{
@@ -89,7 +95,17 @@ export default async function Home() {
                     }
                   }}
                   {...emailInput}
-                />
+                >
+                  {numberInput && (
+                    <input
+                      placeholder={numberInput.placeholder}
+                      className={clsx(
+                        'flex-1 text-sm pl-4 pr-2 py-2 h-11 bg-gray-11/5 cursor-text rounded-full text-gray-12 placeholder:text-gray-9 border border-gray-11/10'
+                      )}
+                      {...numberInput}
+                    />
+                  )}
+                </InputForm>
               )}
             </div>
           </WaitlistWrapper>

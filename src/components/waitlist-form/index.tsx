@@ -22,7 +22,12 @@ const STATES: Record<State, State> = {
   error: 'error',
 }
 
-export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
+export function InputForm({
+  formAction,
+  buttonCopy,
+  children,
+  ...props
+}: InputForm) {
   const [state, setState] = useState<State>(STATES.idle)
   const [error, setError] = useState<string>()
   const [value, setValue] = useState('')
@@ -68,6 +73,7 @@ export function InputForm({ formAction, buttonCopy, ...props }: InputForm) {
       className="flex flex-col gap-2 w-full relative"
       onSubmit={handleSubmit}
     >
+      {children}
       <div className="flex items-center justify-between gap-3 relative">
         <input
           {...props}
