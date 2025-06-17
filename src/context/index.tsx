@@ -1,6 +1,5 @@
 import { ThemeProvider } from 'next-themes'
-import { Toolbar } from 'basehub/next-toolbar'
-import { Settings } from '../../.basehub/schema'
+import { Settings } from '../../basehub'
 
 export function Providers({
   children,

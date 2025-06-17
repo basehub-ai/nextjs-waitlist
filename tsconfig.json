@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/components/gradient/index.js"
-  ],
+  , "basehub.d.ts", "basehub.config.ts"],
   "exclude": ["node_modules"]
 }

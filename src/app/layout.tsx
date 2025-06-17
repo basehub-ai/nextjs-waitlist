@@ -7,6 +7,7 @@ import { Toolbar } from 'basehub/next-toolbar'
 import { basehub } from 'basehub'
 import { Pump } from 'basehub/react-pump'
 import { MeshGradientComponent } from '~/components/mesh-gradient'
+import '../../basehub.config'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -108,11 +109,11 @@ export default async function RootLayout({
                     <main className="flex justify-center">{children}</main>
                   </div>
                 </div>
-                <Toolbar />
               </Providers>
             )
           }}
         </Pump>
+        <Toolbar />
       </body>
     </html>
   )
