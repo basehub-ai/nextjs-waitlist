@@ -27,7 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/gradient/index.js"
-  , "basehub.d.ts", "basehub.config.ts"],
+    "src/components/gradient/index.js",
+    "basehub.config.ts",
+    "basehub-types.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
