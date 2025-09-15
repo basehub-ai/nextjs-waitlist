@@ -15,8 +15,8 @@ importers:
         specifier: 0.0.32
         version: 0.0.32(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       basehub:
-        specifier: ^9.3.4
-        version: 9.3.4(@babel/runtime@7.26.0)(@types/react@19.0.7)(react@19.1.1)(zod@3.25.76)
+        specifier: ^9.4.2
+        version: 9.4.2(@babel/runtime@7.26.0)(@types/react@19.0.7)(react@19.1.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -140,8 +140,8 @@ packages:
     resolution: {integrity: sha512-L6mZmwFDK6Cjh1nRCLXpa6no13ZIioJDz7mdkzHv399pThrTa/k0nUlNaenOeh2kWu/iaOQYElEpKPUswUa9Vg==}
     engines: {node: '>=6.9.0'}
 
-  '@basehub/mutation-api-helpers@2.1.3':
-    resolution: {integrity: sha512-YYl2Xps1c8W2bnX1T1Rox9t85Goe4wpmw3mcRhx7FRBYtc5exzWd2tDj/wl/bvRVzvYPd7Nx2iu7FyjU4yHFNA==}
+  '@basehub/mutation-api-helpers@2.1.7':
+    resolution: {integrity: sha512-Oe0SaaLShEYyqgaeICD7GkJdniMvSVdQWsXmgelLMgHfgS4q0wFKK2LQr4A7ttAG3z/yEeeCZ3mZ1MAcuwyBiA==}
     peerDependencies:
       zod: ^3.25.0
 
@@ -958,8 +958,8 @@ packages:
     resolution: {integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==}
     engines: {node: ^4.5.0 || >= 5.9}
 
-  basehub@9.3.4:
-    resolution: {integrity: sha512-Ii1uwp3pNj/dIIv/v7RhCMrmp5VgHiOmiQmwPTRKaKBzNzK6Wd5gB4BvjfJrrnNyslWHnqKNkOxKgC+JTCN/dg==}
+  basehub@9.4.2:
+    resolution: {integrity: sha512-LWRSHJLcVa3I//3q4jAo83cd0eUbr/uALMkde8pik9BTeUjupDGUBerdFmNUs/QQTgR1DQpE/Y9dsMJIyRLCXQ==}
     hasBin: true
 
   binary-extensions@2.3.0:
@@ -2360,7 +2360,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@basehub/mutation-api-helpers@2.1.3(zod@3.25.76)':
+  '@basehub/mutation-api-helpers@2.1.7(zod@3.25.76)':
     dependencies:
       zod: 3.25.76
 
@@ -2983,9 +2983,9 @@ snapshots:
 
   base64id@2.0.0: {}
 
-  basehub@9.3.4(@babel/runtime@7.26.0)(@types/react@19.0.7)(react@19.1.1)(zod@3.25.76):
+  basehub@9.4.2(@babel/runtime@7.26.0)(@types/react@19.0.7)(react@19.1.1):
     dependencies:
-      '@basehub/mutation-api-helpers': 2.1.3(zod@3.25.76)
+      '@basehub/mutation-api-helpers': 2.1.7(zod@3.25.76)
       '@radix-ui/react-slot': 1.1.1(@types/react@19.0.7)(react@19.1.1)
       '@shikijs/transformers': 1.17.7
       '@xmldom/xmldom': 0.9.6
@@ -3006,13 +3006,13 @@ snapshots:
       shiki: 1.17.7
       type-fest: 4.41.0
       typesense: 1.8.2(@babel/runtime@7.26.0)
+      zod: 3.25.76
     transitivePeerDependencies:
       - '@babel/runtime'
       - '@types/react'
       - debug
       - react
       - supports-color
-      - zod
 
   binary-extensions@2.3.0: {}
 
