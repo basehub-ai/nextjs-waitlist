@@ -54,7 +54,6 @@ export const NavbarLinkBackground = ({ links }: { links: string[] }) => {
         width: `90px`,
         left: `calc((${activeIndex} * 90px) + 4px)`,
       }}
-      data-debug={JSON.stringify({ pathname, links, activeIndex })}
     />
   )
 }
