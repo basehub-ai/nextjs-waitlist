@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
@@ -19,12 +19,17 @@ export const NavbarLink = ({
   children: React.ReactNode
 }) => {
   const pathname = usePathname() || '/'
-  console.log({ pathname, href })
+  const [active, setActive] = useState(false)
+
+  useEffect(() => {
+    setActive(pathname === href)
+  }, [pathname, href])
+
   return (
     <Link
       href={href}
       className={`relative text-sm font-medium py-1 px-3 transition-colors duration-200 text-slate-12 w-[90px] flex items-center justify-center
-        ${pathname === href ? 'opacity-100' : 'opacity-30 hover:opacity-60'}`}
+        ${active ? 'opacity-100' : 'opacity-30 hover:opacity-60'}`}
     >
       {children}
     </Link>
@@ -34,8 +39,11 @@ export const NavbarLink = ({
 // NavbarLinkBackground component
 export const NavbarLinkBackground = ({ links }: { links: string[] }) => {
   const pathname = usePathname() || '/'
-  const activeIndex = links.indexOf(pathname)
-  console.log({ pathname, links })
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    setActiveIndex(links.indexOf(pathname))
+  }, [pathname, links])
 
   return (
     <div
@@ -46,6 +54,7 @@ export const NavbarLinkBackground = ({ links }: { links: string[] }) => {
         width: `90px`,
         left: `calc((${activeIndex} * 90px) + 4px)`,
       }}
+      data-debug={JSON.stringify({ pathname, links, activeIndex })}
     />
   )
 }
