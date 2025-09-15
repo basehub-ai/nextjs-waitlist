@@ -19,6 +19,7 @@ export const NavbarLink = ({
   children: React.ReactNode
 }) => {
   const pathname = usePathname() || '/'
+  console.log({ pathname, href })
   return (
     <Link
       href={href}
@@ -34,6 +35,7 @@ export const NavbarLink = ({
 export const NavbarLinkBackground = ({ links }: { links: string[] }) => {
   const pathname = usePathname() || '/'
   const activeIndex = links.indexOf(pathname)
+  console.log({ pathname, links })
 
   return (
     <div
